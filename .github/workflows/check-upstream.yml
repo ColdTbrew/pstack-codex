@@ -1,0 +1,56 @@
+name: Check upstream pstack
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 2 * * 1"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - name: Check pinned upstream
+        id: upstream
+        shell: bash
+        run: |
+          set +e
+          uv run python scripts/sync_upstream.py --check --fail-on-change \
+            2>&1 | tee /tmp/upstream-check.log
+          status=${PIPESTATUS[0]}
+          set -e
+          if [ "$status" -eq 3 ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          elif [ "$status" -ne 0 ]; then
+            exit "$status"
+          fi
+      - name: Open or update tracking issue
+        if: steps.upstream.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          title="Upstream pstack update available"
+          body=$(cat /tmp/upstream-check.log)
+          existing=$(gh issue list --state open --search "$title in:title" \
+            --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "A scheduled check still detects an update:
+
+          \`\`\`
+          $body
+          \`\`\`"
+          else
+            gh issue create --title "$title" --body "The pinned pstack source changed:
+
+          \`\`\`
+          $body
+          \`\`\`
+
+          Follow [docs/UPSTREAM_SYNC.md](https://github.com/seunghyuk-DQ/pstack-codex/blob/main/docs/UPSTREAM_SYNC.md)."
+          fi

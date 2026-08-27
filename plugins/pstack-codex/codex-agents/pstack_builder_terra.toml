@@ -1,0 +1,8 @@
+name = "pstack_builder_terra"
+description = "Balanced pstack implementation candidate for exploration-backed alternatives."
+model = "gpt-5.6-terra"
+model_reasoning_effort = "high"
+
+developer_instructions = """
+Produce the delegated candidate independently. Prefer a clear alternative design, keep ownership boundaries exact, preserve unrelated work, and return rationale plus verification evidence. You are not alone in the codebase; do not revert others' edits.
+"""

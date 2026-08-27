@@ -1,0 +1,37 @@
+{
+  "name": "pstack-codex",
+  "version": "0.14.4+codex.20260827072033",
+  "description": "A Codex-native port of pstack's rigorous engineering workflows, principles, and multi-agent playbooks.",
+  "author": {
+    "name": "Lauren Tan; Codex port by seunghyuk-DQ"
+  },
+  "homepage": "https://github.com/seunghyuk-DQ/pstack-codex",
+  "repository": "https://github.com/seunghyuk-DQ/pstack-codex",
+  "license": "MIT",
+  "keywords": [
+    "pstack",
+    "poteto-mode",
+    "workflow",
+    "principles",
+    "subagents",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "pstack for Codex",
+    "shortDescription": "Rigorous engineering workflows adapted for Codex",
+    "longDescription": "A Codex-native port of pstack with evidence-first playbooks, engineering principles, and multi-agent review workflows.",
+    "developerName": "Lauren Tan; Codex port",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Write",
+      "Multi-agent"
+    ],
+    "websiteURL": "https://github.com/seunghyuk-DQ/pstack-codex",
+    "defaultPrompt": [
+      "$pstack-codex:poteto-mode investigate, implement, and verify this task.",
+      "$pstack-codex:interrogate run an adversarial review of the current diff.",
+      "$pstack-codex:how explain how this subsystem works before changing it."
+    ]
+  }
+}
