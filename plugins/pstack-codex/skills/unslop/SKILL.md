@@ -1,11 +1,19 @@
 ---
 name: unslop
-description: Cut AI tells from any writing. Must always apply.
+description: >-
+  Polish report prose to remove obvious AI writing patterns. Use only when
+  drafting, rewriting, or reviewing a report or report section, including
+  technical, evaluation, benchmark, research, incident, and executive reports.
+  Do not use for ordinary chat, status updates, code, diagnostics,
+  documentation, emails, or other writing.
 ---
 
 # Unslop
 
-Edit text to remove AI patterns and add human voice.
+Edit report text to remove AI patterns and add human voice.
+
+Use this skill only when the requested output is a report or part of one. Do
+not invoke it for ordinary conversation or non-report work.
 
 ## Process
 
