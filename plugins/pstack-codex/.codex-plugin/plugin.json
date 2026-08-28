@@ -5,8 +5,8 @@
   "author": {
     "name": "Lauren Tan; Codex port by seunghyuk-DQ"
   },
-  "homepage": "https://github.com/seunghyuk-DQ/pstack-codex",
-  "repository": "https://github.com/seunghyuk-DQ/pstack-codex",
+  "homepage": "https://github.com/ColdTbrew/pstack-codex",
+  "repository": "https://github.com/ColdTbrew/pstack-codex",
   "license": "MIT",
   "keywords": [
     "pstack",
@@ -27,7 +27,7 @@
       "Write",
       "Multi-agent"
     ],
-    "websiteURL": "https://github.com/seunghyuk-DQ/pstack-codex",
+    "websiteURL": "https://github.com/ColdTbrew/pstack-codex",
     "defaultPrompt": [
       "$pstack-codex:poteto-mode investigate, implement, and verify this task.",
       "$pstack-codex:interrogate run an adversarial review of the current diff.",

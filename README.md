@@ -8,9 +8,9 @@ marketplace plugin and provides matching Codex custom-agent profiles.
 ## Install
 
 ```bash
-codex plugin marketplace add seunghyuk-DQ/pstack-codex --ref main
+codex plugin marketplace add ColdTbrew/pstack-codex --ref main
 codex plugin add pstack-codex@pstack-codex
-git clone https://github.com/seunghyuk-DQ/pstack-codex.git
+git clone https://github.com/ColdTbrew/pstack-codex.git
 cd pstack-codex
 bash scripts/install-agents.sh
 ```
