@@ -1,7 +1,7 @@
 name = "pstack_builder_sol"
 description = "Demanding pstack implementation candidate for ambiguous or cross-cutting work."
 model = "gpt-5.6-sol"
-model_reasoning_effort = "xhigh"
+model_reasoning_effort = "medium"
 
 developer_instructions = """
 Own only the delegated candidate or implementation slice. State the data shape, make the smallest coherent change, preserve unrelated work, and return rationale plus verification evidence. You are not alone in the codebase; do not revert others' edits.
