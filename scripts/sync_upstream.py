@@ -64,6 +64,7 @@ PORT_OWNED_TARGETS = {
     "skills/show-me-your-work/SKILL.md",
     "skills/swarm/SKILL.md",
     "skills/technical-writing/SKILL.md",
+    "skills/unslop/SKILL.md",
     "skills/why/SKILL.md",
 }
 
@@ -134,6 +135,7 @@ REPLACEMENTS = [
     ("Cursor", "Codex"),
     ("grok-4.6-fast-xhigh", "gpt-5.6-luna"),
     ("grok-4.5-fast-xhigh", "gpt-5.6-luna"),
+    ("claude-fable-5-1-thinking-max", "gpt-5.6-sol"),
     ("claude-fable-5-thinking-max", "gpt-5.6-sol"),
     ("claude-opus-5-thinking-xhigh", "gpt-5.6-terra"),
     ("gpt-5.6-sol-max", "gpt-5.6-sol"),
@@ -353,6 +355,7 @@ def build_candidate(source: Path, candidate: Path, version: str, changed: bool) 
     shutil.copytree(source, candidate)
 
     move_if_present(candidate, "skills/grokbot", "upstream-cursor-only/grokbot")
+    move_if_present(candidate, "skills/make-bot-ui", "upstream-cursor-only/grokbot/make-bot-ui")
     move_if_present(candidate, "agents", "upstream-cursor-only/agents")
     move_if_present(candidate, "automations", "upstream-cursor-only/automations")
     move_if_present(candidate, "docs", "upstream-cursor-only/docs")
@@ -364,11 +367,10 @@ def build_candidate(source: Path, candidate: Path, version: str, changed: bool) 
 
     for skill_md in sorted(skills_root.glob("*/SKILL.md")):
         text = skill_md.read_text(encoding="utf-8")
-        explicit_only = bool(re.search(r"(?m)^disable-model-invocation:\s*true\s*$", text))
         reminder_match = re.search(r"(?m)^reminder:\s*(.*?)\s*$", text)
         reminder = reminder_match.group(1) if reminder_match else None
         text = re.sub(r"(?m)^disable-model-invocation:\s*true\s*\n", "", text)
-        text = re.sub(r"(?m)^(?:mode|icon|color):\s*.*?\s*\n", "", text)
+        text = re.sub(r"(?m)^(?:mode|icon|color|paths):\s*.*?\s*\n", "", text)
         text = re.sub(r"(?m)^reminder:\s*.*?\s*\n", "", text)
         text = transform_text(text, skill_names)
         if reminder:
@@ -378,18 +380,17 @@ def build_candidate(source: Path, candidate: Path, version: str, changed: bool) 
             insertion = end + len("\n---")
             text = text[:insertion] + f"\n\n> Reminder: {reminder}" + text[insertion:]
         skill_md.write_text(text, encoding="utf-8")
-        if explicit_only:
-            display_name = skill_md.parent.name.replace("-", " ").title()
-            metadata = skill_md.parent / "agents" / "openai.yaml"
-            metadata.parent.mkdir(parents=True, exist_ok=True)
-            metadata.write_text(
-                "interface:\n"
-                f"  display_name: {json.dumps(display_name)}\n"
-                '  short_description: "Explicit pstack workflow and engineering guidance."\n'
-                "policy:\n"
-                "  allow_implicit_invocation: false\n",
-                encoding="utf-8",
-            )
+        display_name = skill_md.parent.name.replace("-", " ").title()
+        metadata = skill_md.parent / "agents" / "openai.yaml"
+        metadata.parent.mkdir(parents=True, exist_ok=True)
+        metadata.write_text(
+            "interface:\n"
+            f"  display_name: {json.dumps(display_name)}\n"
+            '  short_description: "Explicit pstack workflow and engineering guidance."\n'
+            "policy:\n"
+            "  allow_implicit_invocation: false\n",
+            encoding="utf-8",
+        )
 
     for markdown in sorted(skills_root.rglob("*.md")):
         if markdown.name == "SKILL.md":

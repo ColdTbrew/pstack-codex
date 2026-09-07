@@ -1,6 +1,6 @@
 {
   "name": "pstack-codex",
-  "version": "0.14.4+codex.20260828002623",
+  "version": "0.14.8+codex.20260907002758",
   "description": "A Codex-native port of pstack's rigorous engineering workflows, principles, and multi-agent playbooks.",
   "author": {
     "name": "Lauren Tan; Codex port by seunghyuk-DQ"
@@ -32,6 +32,7 @@
       "$pstack-codex:poteto-mode investigate, implement, and verify this task.",
       "$pstack-codex:interrogate run an adversarial review of the current diff.",
       "$pstack-codex:how explain how this subsystem works before changing it."
-    ]
+    ],
+    "logo": "./assets/logo.png"
   }
 }
