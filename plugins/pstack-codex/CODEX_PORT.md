@@ -1,6 +1,6 @@
 # pstack-codex port notes
 
-This package derives from `cursor/plugins/pstack` 0.14.8 under the MIT license.
+This package derives from `cursor/plugins/pstack` 0.15.0 under the MIT license.
 
 The Codex port packages the reusable skills as a Codex plugin and provides
 standalone custom-agent TOML files under `codex-agents/`. Cursor-only Grok Bot
@@ -20,6 +20,20 @@ Runtime mappings:
 
 The exact upstream commit and update procedure are tracked by the containing
 repository's `upstream-lock.json` and `docs/UPSTREAM_SYNC.md`.
+
+## Upstream 0.15.0 reconciliation
+
+The current update pins `cursor/plugins` at
+`df3fb154fb982fb83f649de8646d4af6a0cb16b3`.
+
+- Add Attack the Premise and Test Behavior, Not Implementation principles.
+- Remove how critique mode and its two reference files. Preserve Codex
+  explorer and explainer profiles in the shorter explanation workflow.
+- Simplify why while retaining evidence coverage, citation confidence,
+  connector discovery, read-only instructions, and bounded agent waves.
+- Adopt upstream prose cleanup and concise PR briefing guidance.
+- Preserve Codex-owned orchestration, model settings, report-only unslop,
+  and explicit invocation for all 46 skills.
 
 ## Upstream 0.14.8 reconciliation
 
@@ -48,6 +62,6 @@ The update pins `cursor/plugins` at
 
 ## Invocation policy
 
-All 44 registered skills use `allow_implicit_invocation: false`. Invoke them
+All 46 registered skills use `allow_implicit_invocation: false`. Invoke them
 explicitly with `$pstack-codex:<skill-name>`. The upstream converter applies
 this policy to every skill, including skills added by future updates.

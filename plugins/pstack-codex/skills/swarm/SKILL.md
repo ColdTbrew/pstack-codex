@@ -22,7 +22,7 @@ Create or update a Codex plan with one entry per phase before launching anything
 2. Choose the shape. Partition into slices, race N workers on identical briefs, or mix both. For a race or mixed shape, declare `first pass`, `rank all`, or `best-of` before spawning.
 3. Set N from the user or derive it from the shape. Run larger swarms in waves that fit the active Codex concurrency limit.
 4. Use `pstack_worker` for coverage slices. For a model race, name the `pstack_builder_sol`, `pstack_builder_terra`, or `pstack_builder_luna` profile assigned to each arm.
-5. Give each worker its own writable output when it writes. Use a worktree, branch, or `/tmp/swarm-<slug>/worker-<n>/`.
+5. Give each worker its own writable output when it writes.
 
 ## Phase B: Fan out
 

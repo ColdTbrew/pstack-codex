@@ -22,7 +22,7 @@ directly:
 $pstack-codex:poteto-mode investigate this bug, fix the root cause, and verify it.
 ```
 
-The plugin currently contains 44 skills and 10 custom-agent profiles. The
+The plugin currently contains 46 skills and 10 custom-agent profiles. The
 custom agents map demanding, balanced, and bounded work to the Codex Sol,
 Terra, and Luna model families.
 
