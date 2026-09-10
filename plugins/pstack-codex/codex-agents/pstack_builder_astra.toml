@@ -1,6 +1,6 @@
-name = "pstack_builder_sol"
-description = "Pstack implementation agent for scoped features and routine bug fixes."
-model = "gpt-5.6-sol"
+name = "pstack_builder_astra"
+description = "Demanding pstack implementation candidate for ambiguous or cross-cutting work."
+model = "gpt-6-astra"
 model_reasoning_effort = "medium"
 
 developer_instructions = """

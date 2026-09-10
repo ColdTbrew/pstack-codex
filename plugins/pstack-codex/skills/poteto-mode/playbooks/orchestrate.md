@@ -12,6 +12,8 @@ Three rules carry the rest.
 
 #### Roles and placement
 
+Read [model routing](../references/model-routing.md) for coordinator, track, worker, and verifier model choices before launching agents.
+
 - **Coordinator (this chat).** Local. Frames, authors briefs, drains the inbox, owns the human report, makes judgment calls. It never authors or edits code: conflicted merges, restacks, and code changes are always tasks. Mechanically landing a verified unit (fast-forward or clean cherry-pick of a worker's commit, then push) is bookkeeping the coordinator may do itself on repos where local git is cheap; queueing finished work behind an idle stacker is how a deadline harvests nothing. The loop is agentic end to end. Agents are spawned, resumed, and drained only through the Codex subagent tools. State reads and writes go through `scripts/orch/orch.ts` at drain points, one command in and one line out, to conserve context. The CLI never spawns, waits, or wakes anything.
 - **Sub-coordinator.** Use one per track only when the active Codex release supports nested subagents and the root cannot drain the track directly. Each nested layer repays a full orientation cost. Roll up aggregates at wave boundaries and never forward raw child reports. Cap all in-flight descendants at the current session limit.
 - **Worker / verifier.** All local Codex agents share the workspace and permission boundary. Prefer fewer, broader workers; assign exactly one writer per worktree or branch (principle-separate-before-serializing-shared-state). Use a `pstack_reviewer_*` profile that did not write the unit when independent verification is justified.

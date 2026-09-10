@@ -48,7 +48,7 @@ The update pins `cursor/plugins` at
   not ratios between unlike scenarios.
 - Upstream Fable model changes in architect, arena, how, interrogate,
   poteto-mode, bug-fix, perf-issue, hillclimb, reflect, setup-pstack, and why
-  retain the configured Codex Sol/Terra/Luna roles and reasoning levels.
+  retain the configured Codex Astra/Sol/Terra/Luna roles and reasoning levels.
 - The new explicit-invocation flags for how, why, unslop, and TypeScript
   guidance map to `agents/openai.yaml`. TypeScript file scope remains in
   the skill description; Cursor's `paths` frontmatter is not emitted.

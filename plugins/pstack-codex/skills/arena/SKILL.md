@@ -24,7 +24,7 @@ The N candidates will receive the same prompt, so the prompt is the contract.
 
 1. State the artifact each candidate is producing.
 2. Derive the rubric. State what success looks like for *this* task, then turn it into 3-6 concrete gradeable criteria. The rubric is the picker's tool in Phase D. Candidates only see the task.
-3. Pick up to three runners so the root task remains within the normal four-thread Codex limit. Default to `pstack_builder_sol`, `pstack_builder_terra`, and `pstack_builder_luna`. Use fewer when the task has fewer meaningful design directions.
+3. Pick up to three runners so the root task remains within the normal four-thread Codex limit. Choose the ordinary or difficult candidate set from [model routing](../poteto-mode/references/model-routing.md). Use fewer when the task has fewer meaningful design directions.
 4. Assign output paths. Each candidate writes to its own location (a git worktree where possible, otherwise `/tmp/arena-<slug>/candidate-<n>/`), per the **separate-before-serializing-shared-state** principle skill.
 
 ## Phase B: Fan out
@@ -37,7 +37,7 @@ If a candidate fails to produce output, proceed with N-1 and note the dropout in
 
 ## Phase C: Cross-judge
 
-After all Phase B candidates complete, spawn `pstack_reviewer_sol` as the read-only judge. It sees the rubric and candidates by neutral path label, scores each criterion, and recommends a base with rationale. The parent reads the candidates in parallel with the judge. Do not start the judge while candidates are still writing.
+After all Phase B candidates complete, spawn the read-only judge selected by [model routing](../poteto-mode/references/model-routing.md) for the task difficulty. It sees the rubric and candidates by neutral path label, scores each criterion, and recommends a base with rationale. The parent reads the candidates in parallel with the judge. Do not start the judge while candidates are still writing.
 
 ## Phase D: Pick a base
 

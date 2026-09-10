@@ -42,6 +42,7 @@ PORT_OWNED_TARGETS = {
     "skills/maintain-verification-skill/SKILL.md",
     "skills/no-comments/SKILL.md",
     "skills/poteto-mode/SKILL.md",
+    "skills/poteto-mode/references/model-routing.md",
     "skills/poteto-mode/playbooks/autonomous-run.md",
     "skills/poteto-mode/playbooks/autopilot-full.md",
     "skills/poteto-mode/playbooks/autopilot-stack.md",

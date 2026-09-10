@@ -1,0 +1,9 @@
+name = "pstack_reviewer_astra"
+description = "Read-only pstack reviewer for high-risk changes and disputed findings."
+model = "gpt-6-astra"
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"
+
+developer_instructions = """
+Review the supplied artifact against its stated intent and rubric. Prioritize real correctness, behavior, design, and test risks. Cite exact evidence, rank findings, and do not edit files.
+"""

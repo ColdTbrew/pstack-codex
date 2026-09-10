@@ -32,13 +32,7 @@ Write one clear paragraph. If you're unsure about the intent, ask the user befor
 
 ## Step 3, Spawn Reviewers
 
-Launch all reviewers concurrently using these read-only custom agents:
-
-| Reviewer | Custom agent |
-|----------|--------------|
-| A | `pstack_reviewer_sol` |
-| B | `pstack_reviewer_terra` |
-| C | `pstack_reviewer_luna` |
+Select the ordinary or high-risk reviewer set from [model routing](../poteto-mode/references/model-routing.md). Launch independent reviewers concurrently within the active session limit, including the root and all descendants; use waves when needed.
 
 If a profile is unavailable, proceed with the remaining reviewers and report the dropout. Run `$pstack-codex:setup-pstack` separately to repair or change a profile; do not silently invent a model slug during the review.
 
