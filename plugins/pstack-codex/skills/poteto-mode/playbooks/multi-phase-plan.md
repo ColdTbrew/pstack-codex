@@ -31,8 +31,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 
 ### Arm the program
 
-- [ ] State the protocol and this plan to the operator, then stop. Start execution only on her explicit go.
-- [ ] On approval, create or update the active Codex goal with this exact text: "<The plan path, the PR ids in order, the verification rule, who merges, and the done condition.>"
+- [ ] State the protocol and this plan to the operator, then stop. Start execution only on the operator's explicit go.
 - [ ] Read these from trunk at program start. Re-read them at every tick.
   - [ ] Read `<plugin-root>/skills/poteto-mode/playbooks/<execution playbook>.md`.
   - [ ] Read `<plugin-root>/skills/swarm/SKILL.md`.
@@ -40,7 +39,8 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
   - [ ] Read `<plugin-root>/skills/poteto-mode/playbooks/opening-a-pr.md`.
   - [ ] `git show origin/main:pstack/skills/<each other leaf skill the program uses>`
 - [ ] Arm an audit cadence proportional to the job using Codex task waits, watcher output, or a user-requested automation.
-- [ ] At each audit, re-read the execution playbook and active goal. Probe every active lane, judge progress by side effects, replace stuck lanes, and report only changed state, open gates, and blockers.
+- [ ] At each audit, re-read the execution playbook. Probe every active lane, judge progress by side effects, replace stuck lanes, and report only changed state, open gates, and blockers.
+- [ ] Log every audit tick, including ticks with no newly reportable change. Never repeat an unchanged status table or blocker.
 - [ ] On the operator's hold or stand-down, send every owner a zero-writes order at once.
 
 ### Spawn owners
@@ -55,16 +55,17 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 ### PR mechanics, for every PR
 
 - [ ] Resolve the forge once. Default to `gh`; if `command -v origin` succeeds and Origin can resolve the repository, use `origin pr` for every PR operation. Record any fallback to `gh`. Never require `gt`.
-- [ ] Open the PR ready, never draft, with `origin pr create --status open --base <base-branch>` or `gh pr create --base <base-branch>` according to the resolved forge. A stack child targets its parent branch.
+- [ ] Open the PR ready, never draft, per **Opening a PR**. Use the run's built-in PR tool when it has one, else `origin pr create --status open --base <base-branch>` or `gh pr create --base <base-branch>` according to the resolved forge. A stack child targets its parent branch.
 - [ ] Run the repo's lint and typecheck once before the PR-facing push. Push with hooks on.
 - [ ] Run `$pstack-codex:unslop` before each commit and `$pstack-codex:no-comments` before review.
 - [ ] Triage every Bugbot and security-reviewer comment per `../references/bugbot-triage.md`.
-- [ ] Rebase onto current trunk before babysit and again before the merge-ready report.
+- [ ] Rebase onto current trunk before the code-ready report and babysit. Keep that merge base in fix rounds. Rebase again only at merge prep, on a `git merge-tree` conflict with trunk, or on a CI failure that comes from a change on trunk.
 
 ### Verdict and merge, for every PR
 
-- [ ] At the merge-ready head SHA, run the swarm per `<plugin-root>/skills/swarm/SKILL.md`: one gates lane, every declared live scenario, the perf lane, and one audit lane that reads the diff and receipts while distrusting the PR body. Run extra lanes in waves when they exceed the available Codex slots.
-- [ ] Clean only when every lane is `PASS`. Findings go back to the owner. A new head gets a fresh swarm and a fresh verdict.
+- [ ] At the code-ready head SHA and at each later push that changes the patch, run the swarm per `<plugin-root>/skills/swarm/SKILL.md`. One gates lane. Every declared live lane from the PR's **Verify, live** block. The perf lane from its **Verify, perf** block. Two or more audit lanes, each with its own focus, that read the diff and the receipts and distrust the PR body. The root audits the receipts in the merge-ready report before the verdict.
+- [ ] Clean only when every lane is `PASS`. Findings go back to the owner, including a defect that a lane filed as a note. A new head gets a fresh swarm and a fresh verdict, except for results that stay valid under the patch-id rule in `playbooks/shipping.md`.
+- [ ] Run lanes in waves within the active Codex concurrency limit.
 - [ ] <The merge or append rule from the execution playbook, with the patch-id rule from `playbooks/shipping.md`.>
 
 ### Boot recipe, for every live lane

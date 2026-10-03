@@ -60,6 +60,7 @@ PORT_OWNED_TARGETS = {
     "skills/poteto-mode/playbooks/shipping.md",
     "skills/poteto-mode/playbooks/visual-parity.md",
     "skills/poteto-mode/scripts/worktree-audit.sh",
+    "skills/poteto-mode/scripts/check-plan.mjs",
     "skills/reflect/SKILL.md",
     "skills/setup-pstack/SKILL.md",
     "skills/show-me-your-work/SKILL.md",

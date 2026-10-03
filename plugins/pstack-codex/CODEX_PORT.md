@@ -1,6 +1,6 @@
 # pstack-codex port notes
 
-This package derives from `cursor/plugins/pstack` 0.15.0 under the MIT license.
+This package derives from `cursor/plugins/pstack` 0.15.6 under the MIT license.
 
 The Codex port packages the reusable skills as a Codex plugin and provides
 standalone custom-agent TOML files under `codex-agents/`. Cursor-only Grok Bot
@@ -20,6 +20,25 @@ Runtime mappings:
 
 The exact upstream commit and update procedure are tracked by the containing
 repository's `upstream-lock.json` and `docs/UPSTREAM_SYNC.md`.
+
+## Upstream 0.15.6 reconciliation
+
+The current update pins `cursor/plugins` at
+`23e4138daa01c42d4969f7a5465f82704e64f798`.
+
+- Add Benchmark Checklist and Explain the Number, with entry points in the
+  main workflow, performance diagnosis, and hillclimb harness.
+- Start fresh agents for new tasks and fix rounds; preserve costly live state
+  only in the documented reuse cases. Track child liveness and each code-ready
+  verification round with exact commit and measurement receipts.
+- Make decision logs append-only, including header creation and corrections,
+  and distinguish rows written by concurrent or replacement runs.
+- Retain Codex Astra/Sol/Terra/Luna profiles, bounded waves, report-only unslop,
+  and explicit invocation for all 48 skills. Cursor model aliases and fallback
+  rules remain in the provenance copy; Codex uses its TOML profiles.
+- Match the plan checker to distinct live scenarios, consecutive lane numbers,
+  and a Codex audit cadence. No Cursor loop command or fixed ten-lane count.
+- Keep global test-file creation opt-in and goal creation explicitly requested.
 
 ## Upstream 0.15.0 reconciliation
 
@@ -62,6 +81,6 @@ The update pins `cursor/plugins` at
 
 ## Invocation policy
 
-All 46 registered skills use `allow_implicit_invocation: false`. Invoke them
+All 48 registered skills use `allow_implicit_invocation: false`. Invoke them
 explicitly with `$pstack-codex:<skill-name>`. The upstream converter applies
 this policy to every skill, including skills added by future updates.
