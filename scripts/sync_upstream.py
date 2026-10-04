@@ -35,6 +35,7 @@ PORT_OWNED_TARGETS = {
     "skills/architect/references/runner-prompt.md",
     "skills/arena/SKILL.md",
     "skills/automate-me/SKILL.md",
+    "skills/correct/SKILL.md",
     "skills/create-verification-skill/SKILL.md",
     "skills/figure-it-out/SKILL.md",
     "skills/how/SKILL.md",

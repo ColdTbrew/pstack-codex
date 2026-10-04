@@ -1,6 +1,6 @@
 # pstack-codex port notes
 
-This package derives from `cursor/plugins/pstack` 0.15.6 under the MIT license.
+This package derives from `cursor/plugins/pstack` 0.15.9 under the MIT license.
 
 The Codex port packages the reusable skills as a Codex plugin and provides
 standalone custom-agent TOML files under `codex-agents/`. Cursor-only Grok Bot
@@ -20,6 +20,20 @@ Runtime mappings:
 
 The exact upstream commit and update procedure are tracked by the containing
 repository's `upstream-lock.json` and `docs/UPSTREAM_SYNC.md`.
+
+## Upstream 0.15.9 reconciliation
+
+The update pins `cursor/plugins` at
+`e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a`.
+
+- Add Correct to identify repeated mistake classes and prevent them with
+  architecture, types, and checks before relying on documentation.
+- Extend Architect's design screen with single state ownership, one supported
+  task path, private internals, and derived registries for agent contributors.
+- Adopt the ordered performance mantras in Perf issue and reuse their order
+  in Hillclimb without replacing its experiment stop predicate.
+- Retain Codex model routing, all 12 profiles, explicit invocation for all
+  49 skills, and opt-in creation of new test files.
 
 ## Upstream 0.15.6 reconciliation
 
@@ -81,6 +95,6 @@ The update pins `cursor/plugins` at
 
 ## Invocation policy
 
-All 48 registered skills use `allow_implicit_invocation: false`. Invoke them
+All 49 registered skills use `allow_implicit_invocation: false`. Invoke them
 explicitly with `$pstack-codex:<skill-name>`. The upstream converter applies
 this policy to every skill, including skills added by future updates.
