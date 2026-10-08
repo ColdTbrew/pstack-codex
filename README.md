@@ -22,7 +22,7 @@ directly:
 $pstack-codex:poteto-mode investigate this bug, fix the root cause, and verify it.
 ```
 
-The plugin currently contains 49 skills and 12 custom-agent profiles. The
+The plugin currently contains 50 skills and 12 custom-agent profiles. The
 custom agents use Astra for demanding work, Sol for scoped implementation,
 Terra for exploration and alternatives, and Luna for bounded mechanical work.
 See the [model routing policy](plugins/pstack-codex/skills/poteto-mode/references/model-routing.md)

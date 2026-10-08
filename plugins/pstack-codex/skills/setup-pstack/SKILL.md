@@ -14,6 +14,14 @@ Configure the `pstack_*`, `poteto_agent`, and `comment_sicko` profiles under
    `~/.codex/agents/`. Never invent a model slug.
 2. Show the current role mapping and flag unavailable models.
 3. Read [model routing](../poteto-mode/references/model-routing.md) for role defaults, reasoning settings, escalation, and mode composition. Keep model-named profiles on their named family. The root chat model is selected separately; updating `poteto_agent` does not switch it.
+   If the user asks for a reasoning budget, offer `unlimited` (max), `large`
+   (xhigh), `medium` (high), or `small` (medium). An explicitly chosen preset
+   sets the target effort for each requested profile; `unlimited` targets max
+   rather than leaving existing efforts unchanged. Check the model's supported
+   efforts and use the highest supported effort at or below the target, or
+   flag the profile for a choice when none fits. Keep model IDs and families
+   intact; reasoning is a separate TOML field. Without a budget request, retain
+   each profile's existing or shipped effort instead of imposing a preset.
 4. Update only the requested TOML files. Keep `name`, `description`, and
    `developer_instructions` intact unless the user asks to change behavior.
 5. Validate every TOML file by parsing it and tell the user to start a new Codex task

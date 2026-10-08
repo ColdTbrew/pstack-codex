@@ -1,6 +1,6 @@
 # pstack-codex port notes
 
-This package derives from `cursor/plugins/pstack` 0.15.9 under the MIT license.
+This package derives from `cursor/plugins/pstack` 0.15.15 under the MIT license.
 
 The Codex port packages the reusable skills as a Codex plugin and provides
 standalone custom-agent TOML files under `codex-agents/`. Cursor-only Grok Bot
@@ -20,6 +20,22 @@ Runtime mappings:
 
 The exact upstream commit and update procedure are tracked by the containing
 repository's `upstream-lock.json` and `docs/UPSTREAM_SYNC.md`.
+
+## Upstream 0.15.15 reconciliation
+
+The update pins `cursor/plugins` at
+`ccb5507cec1546dc88135c1139c811e6c59115ba`.
+
+- Add Poteto Help with Codex setup, skill and playbook routing, prompting
+  references, and recipes. Use port source links and installed TOML profiles;
+  keep Cursor-only UI instructions and guides in the provenance copy.
+- Preserve Astra/Sol/Terra/Luna roles and all 12 companion profiles while
+  upstream changes its Cursor model defaults and panel composition.
+- Apply explicitly requested reasoning presets to the supported TOML effort
+  field, including max for unlimited; retain per-role defaults otherwise.
+- Keep explicit invocation for all 50 skills, bounded shared-workspace agents,
+  and opt-in creation of new test files. Update the upstream ledger fixture
+  and run the existing orchestration and PR-watching checks.
 
 ## Upstream 0.15.9 reconciliation
 
@@ -95,6 +111,6 @@ The update pins `cursor/plugins` at
 
 ## Invocation policy
 
-All 49 registered skills use `allow_implicit_invocation: false`. Invoke them
+All 50 registered skills use `allow_implicit_invocation: false`. Invoke them
 explicitly with `$pstack-codex:<skill-name>`. The upstream converter applies
 this policy to every skill, including skills added by future updates.
