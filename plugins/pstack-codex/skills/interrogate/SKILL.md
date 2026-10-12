@@ -5,94 +5,40 @@ description: "Use for \"interrogate\", \"adversarial review\", \"multi-model rev
 
 # Interrogate
 
-Spawn the three Codex reviewer profiles to adversarially review code changes. Each gets the same prompt and rubric. Profile and model diversity creates independent blind spots; agreement is higher-confidence signal, while lone findings still deserve inspection.
+Spawn the three Codex reviewer profiles to adversarially review code changes. Profile and model diversity creates independent blind spots; agreement is higher-confidence signal, while lone findings still deserve inspection. The deliverable is a synthesized verdict. Do NOT auto-apply changes.
 
-The deliverable is a synthesized verdict. Do NOT auto-apply changes.
+## Review
 
-## Step 1, Determine Scope
+1. **Scope:** Use the files or diff the user points to; on a feature branch, use `git diff main...HEAD` (or the appropriate base); for references to recent work, gather relevant files. Package the diff or contents with context reviewers need.
+2. **Intent:** Before spawning, state intent in one clear paragraph derived from the user message, commit messages, PR description if any, and code. If unsure, ask the user.
+3. **Reviewers:** Select the ordinary or high-risk reviewer set from [model routing](../poteto-mode/references/model-routing.md). Launch independent reviewers concurrently within the active session limit, including root and descendants; use waves when needed. If a profile is unavailable, proceed with remaining reviewers and report the dropout. Run `$pstack-codex:setup-pstack` separately to repair or change a profile; do not invent a model slug during review.
+4. Read `references/reviewer-prompt.md` and fill one shared template with the intent, diff or file contents, rubric (`references/rubric.md`), and code-quality lens (`references/code-quality-review.md`). Give the same filled template to every reviewer.
+5. **Synthesize:** Parse every finding; merge duplicates and name the models raising them. Findings raised independently by 2+ models are highest signal; read lone findings but weight accordingly. Note explicit disagreements as context.
+6. **Lead judgment:** You are a pragmatic senior engineer, not a neutral aggregator. Read `references/lead-judgment.md`; categorize every finding, naming model(s) and giving a one-line rationale:
+   - **Act on:** Real correctness, security, or maintainability issues given the goals; would block a real PR.
+   - **Consider:** Legitimate, but tradeoff against addressing now is uncertain.
+   - **Noted:** Valid but not actionable, context-dependent, premature, or low-impact now.
+   - **Dismissed:** Wrong, nitpicky, or missing context; briefly explain why.
 
-Identify what to review from context:
-
-- If the user points at specific files or a diff, use that
-- If on a feature branch, run `git diff main...HEAD` (or the appropriate base branch) for the full changeset
-- If the user's message references recent work, gather the relevant files
-
-Package the diff (or file contents) plus any surrounding context files the reviewers need to understand the code.
-
-## Step 2, State the Intent
-
-Before spawning reviewers, state the intent explicitly. Derive this from:
-
-- The user's message
-- Commit messages
-- PR description if one exists
-- The code itself
-
-Write one clear paragraph. If you're unsure about the intent, ask the user before proceeding.
-
-## Step 3, Spawn Reviewers
-
-Select the ordinary or high-risk reviewer set from [model routing](../poteto-mode/references/model-routing.md). Launch independent reviewers concurrently within the active session limit, including the root and all descendants; use waves when needed.
-
-If a profile is unavailable, proceed with the remaining reviewers and report the dropout. Run `$pstack-codex:setup-pstack` separately to repair or change a profile; do not silently invent a model slug during the review.
-
-Read `references/reviewer-prompt.md` and fill in the template with:
-1. The stated intent
-2. The diff or file contents
-3. The review rubric from `references/rubric.md`
-4. The code-quality lens from `references/code-quality-review.md`
-
-The same filled template goes to all reviewers, so every model applies the code-quality lens.
-
-## Step 4, Synthesize
-
-As results come back, build a unified picture:
-
-1. **Parse all findings** from the reviewers
-2. **Identify consensus**. Findings raised by 2+ models independently are highest signal.
-3. **Identify lone-model findings**. Still worth reading, but weight accordingly.
-4. **Deduplicate**. Different models may describe the same issue differently. Merge these and note which models raised it.
-5. **Note disagreements**. If one model flags something and another explicitly says the opposite, that's useful context for the verdict.
-
-## Step 5, Lead Judgment
-
-You are the lead reviewer, a pragmatic senior engineer, not a neutral aggregator.
-
-Read `references/lead-judgment.md` for the full framework.
-
-Categorize every finding using these buckets:
-
-- **Act on**. Real issues affecting correctness, security, or maintainability given the actual goals. These would block a real PR.
-- **Consider**. Legitimate points, but you're not sure they outweigh the cost of addressing them right now. Worth the user's attention.
-- **Noted**. Technically valid but not actionable. Context-dependent, premature optimization, or low-impact given the current stage.
-- **Dismissed**. Wrong, nitpicky, or missing context. Brief explanation why.
-
-For each finding, include:
-- Which model(s) raised it
-- The category (act on / consider / noted / dismissed)
-- A one-line rationale for the categorization
-
-## Output Format
-
-Present the verdict in this structure:
+## Output
 
 ### Intent
-> [The stated intent paragraph from Step 2]
+> [Stated intent paragraph]
 
 ### Reviewers
 - Reviewer [label]: [model name], [N findings] (one bullet per reviewer)
 
 ### Act On
-[Findings that should be addressed. For each: description, which models raised it, why it matters.]
+[Each finding, models raising it, and why it matters.]
 
 ### Consider
-[Findings worth thinking about. For each: description, which models raised it, tradeoff involved.]
+[Each finding, models raising it, and tradeoff.]
 
 ### Noted
-[Valid but low-priority. Brief list.]
+[Brief list.]
 
 ### Dismissed
-[Rejected findings with brief rationale.]
+[Each finding with brief rationale.]
 
 ### Agreement Map
-[Where did models agree, where did they diverge, and what does the pattern of agreement/disagreement tell us?]
+[Where models agreed or diverged, and what the pattern tells us.]

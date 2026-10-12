@@ -1,6 +1,6 @@
 # pstack-codex port notes
 
-This package derives from `cursor/plugins/pstack` 0.15.15 under the MIT license.
+This package derives from `cursor/plugins/pstack` 0.15.17 under the MIT license.
 
 The Codex port packages the reusable skills as a Codex plugin and provides
 standalone custom-agent TOML files under `codex-agents/`. Cursor-only Grok Bot
@@ -20,6 +20,24 @@ Runtime mappings:
 
 The exact upstream commit and update procedure are tracked by the containing
 repository's `upstream-lock.json` and `docs/UPSTREAM_SYNC.md`.
+
+## Upstream 0.15.17 reconciliation
+
+The update pins `cursor/plugins` at
+`11713c683fe4add4fd403ea880580abbc9e0875f`.
+
+- Add Ketchup for a read-only catch-up on this chat since the user's last
+  message. Keep notifications and subagent results outside that boundary,
+  distinguish user decisions from agent work, and report unavailable live state.
+- Add Ketchup to Poteto Help and both Codex READMEs. Retain Recall for
+  cross-chat context and explicit invocation for all 51 registered skills.
+- Adopt upstream 0.15.16 prompt distillation in skills, principles, review
+  references, and PR guidance without replacing Codex routing, bounded waves,
+  task/thread tools, report-only Unslop, or opt-in test-file creation.
+- Preserve all 12 Astra/Sol/Terra/Luna profiles. This update does not change
+  model defaults, reasoning effort, or PR readiness and babysit gates.
+- Report upstream README changes as manual reconciliation. Keep the complete
+  source README in provenance and update Codex-facing discovery separately.
 
 ## Upstream 0.15.15 reconciliation
 
@@ -111,6 +129,6 @@ The update pins `cursor/plugins` at
 
 ## Invocation policy
 
-All 50 registered skills use `allow_implicit_invocation: false`. Invoke them
+All 51 registered skills use `allow_implicit_invocation: false`. Invoke them
 explicitly with `$pstack-codex:<skill-name>`. The upstream converter applies
 this policy to every skill, including skills added by future updates.

@@ -54,6 +54,11 @@ For every entry under **Manual merge required**:
 4. Keep Cursor-only Grok Bot and Benny sources under
    `upstream-cursor-only/` unless a real Codex replacement is implemented.
 
+Upstream `README.md` changes require manual reconciliation even though the
+source is preserved as `upstream-cursor-only/README.md`. The converter keeps
+the Codex README unchanged. Port relevant discovery entries and update the
+skill inventory in both READMEs and `CODEX_PORT.md` when adding skills.
+
 Reject new unresolved Cursor runtime dependencies such as `Task(...)`,
 `subagent_type`, `run_in_background`, `.cursor/skills`, or `/loop`.
 

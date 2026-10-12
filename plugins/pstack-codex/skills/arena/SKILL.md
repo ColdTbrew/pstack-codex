@@ -5,66 +5,38 @@ description: "Spawn N parallel candidates at the same task, pick a base, graft t
 
 # Arena
 
-Fan out N parallel attempts at the same task. Read every candidate end to end. Pick the strongest as the base. Graft the best ideas from the others into it. Verify the synthesized result.
+Fan out N parallel attempts at the same task; read every candidate end to end, pick the strongest base, graft in the best ideas from the others, and verify the synthesis.
 
 ## Start
 
-Create or update a Codex plan with one entry per phase before launching anything.
+Create or update a Codex plan with one entry per phase: Frame, Fan out, Cross-judge, Pick, Graft, Verify.
 
-1. Frame
-2. Fan out
-3. Cross-judge
-4. Pick
-5. Graft
-6. Verify
+### A. Frame
 
-## Phase A: Frame
+The shared prompt is the contract. State the artifact; derive 3-6 concrete, gradeable success criteria for this task (the picker's rubric; candidates only see the task); assign each candidate an exclusive output path/worktree (otherwise `/tmp/arena-<slug>/candidate-<n>/`), per **separate-before-serializing-shared-state**.
 
-The N candidates will receive the same prompt, so the prompt is the contract.
+Choose up to three runners to keep root plus candidates within Codex's normal four-thread limit. Use the ordinary or difficult set from [model routing](../poteto-mode/references/model-routing.md); use fewer when there are fewer meaningful design directions.
 
-1. State the artifact each candidate is producing.
-2. Derive the rubric. State what success looks like for *this* task, then turn it into 3-6 concrete gradeable criteria. The rubric is the picker's tool in Phase D. Candidates only see the task.
-3. Pick up to three runners so the root task remains within the normal four-thread Codex limit. Choose the ordinary or difficult candidate set from [model routing](../poteto-mode/references/model-routing.md). Use fewer when the task has fewer meaningful design directions.
-4. Assign output paths. Each candidate writes to its own location (a git worktree where possible, otherwise `/tmp/arena-<slug>/candidate-<n>/`), per the **separate-before-serializing-shared-state** principle skill.
+### B. Fan out
 
-## Phase B: Fan out
+Spawn candidates concurrently with the same task and grounding, their custom-agent profile, and exclusive output paths. Require the artifact and a short rationale naming alternatives considered and rejected. If a candidate produces no output, proceed with N-1 and record the dropout.
 
-Spawn all N candidates concurrently. Give each the same task and grounding, its custom-agent profile, an exclusive output path or worktree, and instructions to produce both the artifact and a short rationale.
+### C. Cross-judge
 
-Each rationale names the alternatives the candidate considered and what it rejected.
+After candidates finish writing, spawn the read-only judge selected by [model routing](../poteto-mode/references/model-routing.md) for task difficulty. It sees the rubric and candidates under neutral path labels, scores each criterion, and recommends a base with rationale. The parent reads candidates in parallel with the judge; never start judging while candidates are writing.
 
-If a candidate fails to produce output, proceed with N-1 and note the dropout in the synthesis record.
+### D. Pick a base
 
-## Phase C: Cross-judge
+Read every candidate end to end; score criterion by criterion, not on holistic feel, and compare with the cross-judge. Agreement confirms the base; disagreement may signal bias or an ambiguous rubric, so read both rationales before deciding. Pick the base a future maintainer can extend without breaking invariants; when tied, prefer the cleaner boundary or smaller API per the Laziness Protocol.
 
-After all Phase B candidates complete, spawn the read-only judge selected by [model routing](../poteto-mode/references/model-routing.md) for the task difficulty. It sees the rubric and candidates by neutral path label, scores each criterion, and recommends a base with rationale. The parent reads the candidates in parallel with the judge. Do not start the judge while candidates are still writing.
+### E. Graft
 
-## Phase D: Pick a base
+Revisit every loser for what is worth porting (usually one or two things). Fold grafts in by hand per **redesign-from-first-principles**, not mechanically, keeping one coherent mental model. Convergence on one shape is strong agreement: record and ship the consensus without grafting. Wild divergence means Phase A was under-specified; reframe and rerun, do not average it.
 
-Read every candidate end to end before picking.
+### F. Verify
 
-Score each candidate against the rubric criterion by criterion, not on holistic feel. Compare against the cross-judge. Agreement on the base confirms the pick. Disagreement means one of you is biased or the rubric was ambiguous. Read both rationales before deciding.
-
-Pick the base on which candidate a future maintainer can extend most easily without breaking invariants. Prefer the cleaner boundary or smaller API when two feel tied, per the Laziness Protocol.
-
-Record the pick and the reason in a short synthesis note alongside the base artifact, including the cross-judge's verdict.
-
-## Phase E: Graft
-
-Walk each losing candidate once more and identify what is worth porting into the base. The signal is usually one or two things per candidate, not most of it.
-
-Fold each graft in by hand, per the **redesign-from-first-principles** principle skill. Don't paste mechanically. The result has to remain coherent under one mental model.
-
-Record what was grafted, from which candidate, and what was rejected and why.
-
-When N candidates converge on the same shape, that is a strong agreement signal. Note the convergence in the record and ship the consensus shape. No graft is needed. When N candidates wildly diverge, Phase A was under-specified. Reframe and re-run rather than averaging the divergence.
-
-## Phase F: Verify
-
-The synthesized artifact has to hold up under the same scrutiny as any other output, per the **prove-it-works** principle skill.
-
-If verification surfaces a problem the arena did not catch, either Phase A was wrong (re-frame and re-run) or one candidate caught it and you missed the graft (go back to Phase E). Don't paper over.
+Verify the synthesis per **prove-it-works**. If verification finds a missed problem, reframe and rerun if Phase A was wrong, or return to grafting if a candidate caught it. Do not paper over.
 
 ## Outputs
 
-One synthesized artifact. One short synthesis note alongside, naming the base, the grafts (with source candidate), the rejections, the dropouts if any, and the verification result.
+Deliver one synthesized artifact and a short note alongside it, recording: base and why; cross-judge verdict; each graft and its source; rejected ideas and why; convergence or dropouts; verification result.

@@ -76,6 +76,7 @@ PORT_OWNED_TARGETS = {
 # with one or more PORT_OWNED_TARGETS.
 MANUAL_SOURCE_PATHS = {
     ".cursor-plugin/plugin.json",
+    "README.md",
     *(path for path in PORT_OWNED_TARGETS if path.startswith("skills/")),
 }
 MANUAL_SOURCE_PREFIXES = ("agents/",)

@@ -9,37 +9,27 @@ Explore the codebase to answer "how does X work?" questions. Produce architectur
 
 Use the Codex custom-agent profiles in [model routing](../poteto-mode/references/model-routing.md).
 
-## Step 1. Assess Complexity
+## 1. Assess complexity
 
 If the scope is ambiguous, state your interpretation and explore. The user can redirect.
 
-- **Simple** (a single module, a small utility, a narrow question such as "how does function X work"): no explorers. One explainer explores and explains in a single pass. Go to Step 2b.
-- **Complex** (a subsystem spanning multiple files or services, a cross-cutting feature, a full architectural overview): spawn parallel explorers first, then hand off to the explainer. Go to Step 2a.
+- **Simple** (a single module, a small utility, a narrow question such as "how does function X work"): no explorers. Spawn one `pstack_reviewer_sol` to explore and explain in one pass, using `references/explainer-prompt.md` without the explorer-findings section. Go to step 4.
+- **Complex** (a subsystem spanning multiple files or services, a cross-cutting feature, a full architectural overview): go to step 2.
 
 When in doubt, take the simple path.
 
-## Step 2a. Explore (complex questions only)
+## 2. Explore (complex only)
 
-Decompose the question into 2 to 4 exploration angles, each a distinct slice of the subsystem. Run read-only `pstack_explorer` agents within the available Codex concurrency limit, using waves when needed.
+Decompose the question into 2 to 4 angles, each a distinct slice of the subsystem. Spawn all read-only `pstack_explorer` agents within the available Codex concurrency limit, using `references/explorer-prompt.md` with each angle filled in; use waves when needed.
 
-Each explorer gets the prompt in `references/explorer-prompt.md` with its angle filled in. Then go to Step 3.
+## 3. Synthesize (complex only)
 
-## Step 2b. Direct Explain (simple questions)
+Once all explorers have returned, spawn one `pstack_reviewer_sol` to synthesize their findings using `references/explainer-prompt.md`.
 
-Spawn one read-only `pstack_reviewer_sol` agent that explores and explains in one pass.
+## 4. Present
 
-Build its prompt from `references/explainer-prompt.md` without the explorer-findings section. Go to Step 4.
+Present the explainer's output. Light edits for clarity or context from the conversation are fine. Do not substantially rewrite it.
 
-## Step 3. Synthesize (complex questions only)
-
-Once all explorers have returned, spawn one read-only `pstack_reviewer_sol` agent to synthesize their findings into one explanation.
-
-Build its prompt from `references/explainer-prompt.md` with every explorer's findings filled in.
-
-## Step 4. Present
-
-Present the explainer's output to the user. Light edits for clarity or context from the conversation are fine. Do not substantially rewrite it.
-
-## Output Format
+## Output format
 
 The explanation uses the sections defined in `references/explainer-prompt.md`, dropping any that do not apply: Overview, Key Concepts, How It Works, Where Things Live, Gotchas.

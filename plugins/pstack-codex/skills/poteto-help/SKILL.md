@@ -56,6 +56,7 @@ The usual entry point for a requested non-trivial task is `$pstack-codex:poteto-
 | Know why code is shaped this way, or where a number came from | [`$pstack-codex:why`](../why/SKILL.md) |
 | Understand a change or subsystem, explained plainly | [`$pstack-codex:teach`](../teach/SKILL.md) |
 | Catch up on their own recent work on a topic | [`$pstack-codex:recall`](../recall/SKILL.md) |
+| Catch up on everything in this chat since their last message, with enough context to decide each action item | [`$pstack-codex:ketchup`](../ketchup/SKILL.md) |
 | Know what a small diff could break outside itself | [`$pstack-codex:blast-radius`](../blast-radius/SKILL.md) |
 | Settle types and module shape before code that crosses a function boundary | [`$pstack-codex:architect`](../architect/SKILL.md) |
 | Get several attempts at one brief, merged into the best one | [`$pstack-codex:arena`](../arena/SKILL.md) |
@@ -87,7 +88,7 @@ Close calls:
 - `arena` gives candidates the same brief and synthesizes their results; `swarm` divides work into slices or a race.
 - `architect` implements after settling the design. Add "with checkpoint" to review the design first.
 - `interrogate` reviews a diff; `blast-radius` investigates effects outside it and proves the load-bearing safety claim.
-- `recall` rebuilds context across chats. Resuming one particular branch uses Session pickup.
+- `recall` rebuilds context across chats. `ketchup` covers only this chat since the user's last message. Resuming one particular branch uses Session pickup.
 
 The port ships `unslop`. Browser and terminal automation depend on the tools available in the active Codex session. Grok Bot's make-bot-ui remains Cursor-only. There is no pstack `orchestrate` skill; Orchestrate is a poteto-mode playbook.
 

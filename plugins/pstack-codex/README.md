@@ -18,6 +18,10 @@ Useful direct workflows include `$pstack-codex:how`, `$pstack-codex:why`,
 `$pstack-codex:interrogate`, `$pstack-codex:tdd`,
 `$pstack-codex:unslop`, and `$pstack-codex:technical-writing`.
 
+Use `$pstack-codex:ketchup` for a read-only catch-up on this chat since your
+last message, including pending decisions. Use `$pstack-codex:recall` to
+rebuild context on a topic across chats. All 51 skills are explicit-only.
+
 Run `$pstack-codex:setup-pstack` to review or change the custom-agent model
 mapping. The companion agent installation includes the `poteto_agent`, `comment_sicko`,
 `pstack_builder_*`, `pstack_reviewer_*`, `pstack_explorer`, and

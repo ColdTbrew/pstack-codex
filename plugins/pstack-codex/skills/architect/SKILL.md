@@ -5,11 +5,11 @@ description: "Sketch types, signatures, and module structure before code, then s
 
 # Architect
 
-Design before implementing. Sketch types, function signatures, class shapes, and module boundaries with `not implemented` bodies and pseudocode. Synthesize across multiple model perspectives, then fill in code against the chosen sketch. If implementation proves the sketch wrong, throw it out and redesign.
+Sketch types, function signatures, class shapes, and module boundaries with `not implemented` bodies and pseudocode. Synthesize multiple model perspectives, then implement against the chosen sketch. If implementation proves it wrong, redesign.
 
 ## Start
 
-Create or update a Codex plan with one entry per phase before starting.
+Create or update a Codex plan with one entry per phase:
 
 1. Ground
 2. Sketch
@@ -19,64 +19,56 @@ Create or update a Codex plan with one entry per phase before starting.
 
 ## Phase A: Ground the problem
 
-Build a real mental model of every system the new code touches. Run the **how** skill over the relevant subsystems.
+Build a mental model of every system the code touches. Run the **how** skill on relevant subsystems and produce its architectural explanation; naming files is not grounding. If the design changes ownership or layering, also run **why** so existing rationale constrains the design.
 
-Naming a file isn't grounding. Produce the traced model `how` prescribes. If the design redefines ownership or layering, also run the **why** skill on the existing shape so the rationale becomes a constraint, not a guess.
-
-Skip Phase A only when the work is genuinely greenfield with no surrounding system to integrate.
+Skip this phase only for genuinely greenfield work with no surrounding system.
 
 ## Phase B: Sketch
 
-Run the **arena** skill with the design-sketch task and the Phase A grounding artifacts. Pass `references/runner-prompt.md` as each runner's prompt. Each candidate produces a design package shaped per `references/rationale-template.md`.
+Run **arena** with the design-sketch task and Phase A artifacts. Pass `references/runner-prompt.md` to each runner. Use the `$pstack-codex:arena` candidate set for task difficulty from [model routing](../poteto-mode/references/model-routing.md).
 
-Use the `$pstack-codex:arena` candidate set for the task difficulty from [model routing](../poteto-mode/references/model-routing.md).
+Require at least two structurally distinct designs before synthesis, even when the first looks sufficient. Compare whole shapes, not point fixes. This makes the **exhaust-the-design-space** principle concrete.
 
-Design it twice. Require at least two structurally distinct candidates before synthesis, even when the first looks sufficient. This is the **exhaust-the-design-space** principle skill made concrete. Whole-shape alternatives, not point fixes inside one shape.
+Screen each candidate against [`references/design-red-flags.md`](references/design-red-flags.md). Assume the next contributor sees only opened files, copies the nearest example, and takes the shortest compiling path. Prefer a design where a locally plausible change is right for the whole repo.
 
-Screen every candidate against [`references/design-red-flags.md`](references/design-red-flags.md) before synthesis. Assume the next contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. Prefer the design where a change that looks right from one file is right for the whole repo.
+Compare viable designs on interface depth. Prefer the smaller, simpler public surface that hides more complexity and concentrates capability.
 
-Compare viable candidates on interface depth. Prefer the design that hides more complexity behind a smaller, simpler public surface. A rich interface can keep call chains short by concentrating capability instead of scattering it across layers.
-
-Arena returns one synthesized design package. The synthesis decision populates the rationale's "Synthesis decision" section.
+Arena returns one synthesized design package; record its decision in the rationale's "Synthesis decision" section.
 
 ## Phase C: Agree (opt-in)
 
-Default: proceed directly to implementation with the synthesized design. No human checkpoint.
+By default, proceed to implementation without a human checkpoint. Pause for sign-off only when the invoker explicitly asks, such as "$pstack-codex:architect with checkpoint" or "stop and show me before implementing."
 
-Opt in to a checkpoint when the invoker explicitly asks: "$pstack-codex:architect with checkpoint," "stop and show me before implementing," or similar. Then surface the synthesized design and pause for sign-off.
+The synthesis may ship as its own commit, following the **foundational-thinking** principle's "scaffold first" mode. Planned, scoped breakage during implementation is fine under **outcome-oriented-execution**. For adversarial review, run **interrogate** on the sketch.
 
-The synthesis can ship as its own commit either way, as the "scaffold first" mode of the **foundational-thinking** principle skill. Planned and scoped breakage during fill-in is fine, per the **outcome-oriented-execution** principle skill. For adversarial pressure on the design before implementing, run the **interrogate** skill on the synthesized sketch.
-
-If the human pushes back on the shape (in a checkpoint or after the fact), treat that as Phase A evidence. Re-ground and re-run Phase B before writing more code.
+Treat human pushback as Phase A evidence. Re-ground and rerun Phase B before more code.
 
 ## Phase D: Implement against the sketch
 
-Replace `not implemented` bodies with code, pseudocode with logic. The synthesized sketch is the contract.
-
-Deviations from the sketch are signal worth surfacing, not friction to absorb silently. If a function needs a parameter the sketch didn't anticipate, ask whether the sketch was wrong, the requirement was missed, or the implementation is overreaching.
+Replace `not implemented` bodies and pseudocode with implementation. The sketch is the contract. Surface deviations: ask whether the sketch, requirement, or implementation is wrong.
 
 ## Phase E: Scrap when the architecture is wrong
 
-If implementation keeps producing friction the sketch can't absorb, throw the sketch out. Don't bolt fixes onto a wrong design, per the **redesign-from-first-principles** and **fix-root-causes** principle skills.
+If implementation repeatedly produces friction the sketch cannot absorb, redesign rather than patching a wrong shape, following **redesign-from-first-principles** and **fix-root-causes**.
 
-The signal is a *pattern*, not single instances. Tells:
+Look for patterns, not isolated cases:
 
-- The same shape of workaround appearing repeatedly across unrelated code.
-- Multiple unrelated edge cases that all need special-case branches.
-- Types that need escape hatches (`any`, casts, optional fields always set in practice) to compile.
-- The "we need a lock" reflex when the sketch said the state wasn't shared.
-- Callers having to know the abstraction's internal rules to use it.
-- Two or more independent Phase D deviations of the same shape across the implementation.
+- The same workaround across unrelated code.
+- Unrelated edge cases that need special branches.
+- Types needing escape hatches (`any`, casts, or optional fields always set) to compile.
+- A reflex to add a lock when the sketch says state is not shared.
+- Callers needing to know internal abstraction rules.
+- Two or more independent Phase D deviations of the same shape.
 
-Use judgment. A few edge cases don't condemn an architecture. Some problems are legitimately complex. Complexity in the data is not complexity in the design.
+Use judgment: a few edge cases do not condemn a design, and data complexity is not design complexity.
 
-When you scrap:
+When scrapping:
 
-1. Re-run the **how** skill over what's been built.
-2. Redesign as if the new constraints had been day-one assumptions, per redesign-from-first-principles.
-3. Subtract before adding, per the **subtract-before-you-add** principle skill. The new sketch should be smaller than the old one before it grows.
-4. Return to Phase B and re-run arena.
+1. Rerun **how** on what was built.
+2. Redesign with new constraints as day-one assumptions, following **redesign-from-first-principles**.
+3. Subtract before adding, following **subtract-before-you-add**. Make the new sketch smaller before it grows.
+4. Return to Phase B and rerun arena.
 
 ## Outputs
 
-The caller's usage is written first and the type sketch derived from it. One file with new types and signatures for small changes. Module map plus type definitions for larger work. The rationale ships alongside, shaped per `references/rationale-template.md`, including the usage sketch and the synthesis decision.
+Write caller usage first, then derive the type sketch. Use one file of new types and signatures for small changes; use a module map and type definitions for larger work. Ship the rationale alongside, following `references/rationale-template.md` and including usage and synthesis decisions.
