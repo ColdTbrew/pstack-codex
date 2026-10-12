@@ -87,7 +87,7 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 ## Subagents
 
-**Use the `poteto_agent` custom agent for implementation helpers spawned inside a playbook step.** `$pstack-codex:poteto-mode` and `poteto_agent` share the same wrapper. Routed workflow skills choose their own profiles: `pstack_explorer` for read-heavy investigation, `pstack_worker` for bounded mechanical slices, `pstack_builder_*` for competing implementations, and `pstack_reviewer_*` for independent review.
+**Use `poteto_agent` on Sol/medium by default for implementation helpers spawned inside a playbook step.** For unresolved design choices, changes to contracts across modules, or a Sol attempt that cannot establish correctness, select `pstack_builder_astra` on Astra/medium and give it the task brief and matched playbook. Both helpers must follow the poteto-mode wrapper. Routed workflow skills choose their own profiles: `pstack_explorer` for read-heavy investigation, `pstack_worker` for bounded mechanical slices, `pstack_builder_*` for competing implementations, and `pstack_reviewer_*` for independent review.
 
 **Defaults for every subagent call.** Delegate only concrete, independent work. Launch independent agents concurrently up to the available Codex limit, give every writer exclusive file or worktree ownership, pass file pointers instead of inlining large payloads, and review every returned diff yourself. Read [model routing](references/model-routing.md) before selecting profiles; it defines role defaults, escalation, and mode composition. `$pstack-codex:setup-pstack` updates the model and reasoning settings in those custom-agent TOML files.
 

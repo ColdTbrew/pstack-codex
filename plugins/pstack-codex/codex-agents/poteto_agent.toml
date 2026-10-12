@@ -1,6 +1,6 @@
 name = "poteto_agent"
 description = "Full pstack routing agent for a fresh task, rigorous implementation, synthesis, and verification."
-model = "gpt-6-astra"
+model = "gpt-6.1-sol"
 model_reasoning_effort = "medium"
 
 developer_instructions = """

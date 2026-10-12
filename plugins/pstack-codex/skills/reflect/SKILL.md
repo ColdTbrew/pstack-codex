@@ -24,7 +24,7 @@ Launch three read-only reviewers concurrently over the same digest. The parent a
 | Lens | Custom agent | Prompt template |
 |---|---|---|
 | Judgment | `pstack_reviewer_sol` | `references/judgment-reviewer.md` |
-| Tooling | `pstack_reviewer_terra` | `references/tooling-reviewer.md` |
+| Tooling | `pstack_reviewer_astra` | `references/tooling-reviewer.md` |
 | Divergent | `pstack_reviewer_luna` | `references/divergent-reviewer.md` |
 
 Pass each template verbatim, substituting the digest where marked; reviewers return findings in their Codex subagent responses.

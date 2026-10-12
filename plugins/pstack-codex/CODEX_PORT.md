@@ -21,6 +21,19 @@ Runtime mappings:
 The exact upstream commit and update procedure are tracked by the containing
 repository's `upstream-lock.json` and `docs/UPSTREAM_SYNC.md`.
 
+## Model routing update 2026-10-12
+
+The current port ships 10 Astra/Sol/Luna profiles. Sol uses `gpt-6.1-sol`
+and Luna uses `gpt-6-luna`; Astra remains on `gpt-6-astra`.
+Exploration and comment review move to Sol with their existing high effort.
+The default `poteto_agent` uses Sol/medium; difficult implementation helpers
+use `pstack_builder_astra` with the matched poteto-mode playbook.
+The Sol reviewer uses high effort, and all Luna profiles retain max effort.
+The Terra builder and reviewer profiles are retired. Arena and Interrogate
+use Astra/Sol/Luna for three-model panels, and Reflect uses Astra for its
+tooling lens. The installer removes the two retired profiles on update.
+The reconciliation sections below record the settings at each upstream sync.
+
 ## Upstream 0.15.17 reconciliation
 
 The update pins `cursor/plugins` at

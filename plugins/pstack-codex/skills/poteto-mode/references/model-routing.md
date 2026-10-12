@@ -7,22 +7,23 @@ Use this policy when selecting pstack agents. Explicit user choices take precede
 | Role | Profile or launch choice | Model | Reasoning |
 | --- | --- | --- | --- |
 | Root coordinator | Current chat, start with Astra | `gpt-6-astra` | `medium` |
-| End-to-end delegated owner | `poteto_agent` | `gpt-6-astra` | `medium` |
-| Track sub-coordinator | General agent with an explicit track brief | `gpt-5.6-sol` | `medium` |
+| Default end-to-end delegated owner | `poteto_agent` | `gpt-6.1-sol` | `medium` |
+| Track sub-coordinator | General agent with an explicit track brief | `gpt-6.1-sol` | `medium` |
 | Difficult implementation | `pstack_builder_astra` | `gpt-6-astra` | `medium` |
-| Scoped feature or bug fix | `pstack_builder_sol` | `gpt-5.6-sol` | `medium` |
-| Exploration / alternative implementation | `pstack_explorer` / `pstack_builder_terra` | `gpt-5.6-terra` | `high` |
-| Mechanical implementation / coverage | `pstack_builder_luna` / `pstack_worker` | `gpt-5.6-luna` | `max` |
-| General independent review | `pstack_reviewer_sol` / `pstack_reviewer_terra` | `gpt-5.6-sol` / `gpt-5.6-terra` | `medium` / `high` |
-| Broad bounded review | `pstack_reviewer_luna` | `gpt-5.6-luna` | `max` |
+| Scoped feature or bug fix | `pstack_builder_sol` | `gpt-6.1-sol` | `medium` |
+| Codebase exploration | `pstack_explorer` | `gpt-6.1-sol` | `high` |
+| Alternative implementation | `pstack_builder_sol` / `pstack_builder_astra` by difficulty | `gpt-6.1-sol` / `gpt-6-astra` | `medium` |
+| Mechanical implementation / coverage | `pstack_builder_luna` / `pstack_worker` | `gpt-6-luna` | `max` |
+| General independent review | `pstack_reviewer_sol` | `gpt-6.1-sol` | `high` |
+| Broad bounded review | `pstack_reviewer_luna` | `gpt-6-luna` | `max` |
 | High-risk review / disputed findings | `pstack_reviewer_astra` | `gpt-6-astra` | `high` |
-| Comment review | `comment_sicko` | `gpt-5.6-terra` | `high` |
+| Comment review | `comment_sicko` | `gpt-6.1-sol` | `high` |
 
 The root runs on the current chat model. A skill or custom-agent TOML does not switch it. Recommend Astra medium when starting an orchestration session; continue on an explicitly selected model. Only create track coordinators when the orchestrate playbook needs them. Use the available general agent with explicit Sol/medium settings and a self-contained track brief; when model overrides require a limited or empty history fork, supply the necessary context in that brief. Do not repurpose an implementation-only or read-only profile as a coordinator.
 
 ## Selection and escalation
 
-Use Astra implementation for unresolved design choices, changes to contracts across modules, or a scoped Sol attempt that cannot establish correctness. Use Astra review for concurrency, possible data loss, major architectural changes, or consequential disagreement between reviewers. Ordinary scoped work remains on Sol; mechanical work remains on Luna. Route codebase exploration to Terra.
+Use `poteto_agent` on Sol/medium for ordinary end-to-end implementation helpers. Select `pstack_builder_astra` on Astra/medium for unresolved design choices, changes to contracts across modules, or a scoped Sol attempt that cannot establish correctness; supply the task brief and matched poteto-mode playbook so the helper follows the same wrapper. Use Astra review for concurrency, possible data loss, major architectural changes, or consequential disagreement between reviewers. Ordinary scoped work remains on Sol; mechanical work remains on Luna. Route codebase exploration to the Sol explorer.
 
 Keep implementation and verification in separate agents. A reviewer must not have written the artifact, including when builder and reviewer use the same model. Resolve findings with evidence rather than vote count alone.
 
@@ -30,9 +31,9 @@ Keep implementation and verification in separate agents. A reviewer must not hav
 
 | Mode | Ordinary work | Difficult or high-risk work |
 | --- | --- | --- |
-| Arena candidates | Sol + Terra + Luna builders | Astra + Sol + Terra builders |
+| Arena candidates | Sol + Luna builders; add Astra for a third meaningful alternative | Astra + Sol + Luna builders |
 | Arena judge | Sol reviewer | Astra reviewer |
-| Interrogate reviewers | Sol + Terra + Luna reviewers | Astra + Sol + Terra reviewers |
+| Interrogate reviewers | Sol + Luna reviewers; add Astra when a third independent review is warranted | Astra + Sol + Luna reviewers |
 | Swarm slices | Luna worker | Sol builder for scoped implementation; Astra builder for difficult implementation |
 
 Use fewer candidates when there are fewer meaningful alternatives. Fit every launch within the active session limit, counting the root and all descendants; the current four-agent limit leaves three child slots. Arena judges start after candidates finish.
