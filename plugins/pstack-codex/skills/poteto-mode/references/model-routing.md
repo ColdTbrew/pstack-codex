@@ -19,6 +19,8 @@ Use this policy when selecting pstack agents. Explicit user choices take precede
 | High-risk review / disputed findings | `pstack_reviewer_astra` | `gpt-6-astra` | `high` |
 | Comment review | `comment_sicko` | `gpt-6.1-sol` | `high` |
 
+The three Luna profiles set `service_tier = "fast"` and retain `model_reasoning_effort = "max"`. Service tier and reasoning effort are separate settings. Other profiles inherit the session's service tier.
+
 The root runs on the current chat model. A skill or custom-agent TOML does not switch it. Recommend Astra medium when starting an orchestration session; continue on an explicitly selected model. Only create track coordinators when the orchestrate playbook needs them. Use the available general agent with explicit Sol/medium settings and a self-contained track brief; when model overrides require a limited or empty history fork, supply the necessary context in that brief. Do not repurpose an implementation-only or read-only profile as a coordinator.
 
 ## Selection and escalation

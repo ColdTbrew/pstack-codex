@@ -28,7 +28,8 @@ and Luna uses `gpt-6-luna`; Astra remains on `gpt-6-astra`.
 Exploration and comment review move to Sol with their existing high effort.
 The default `poteto_agent` uses Sol/medium; difficult implementation helpers
 use `pstack_builder_astra` with the matched poteto-mode playbook.
-The Sol reviewer uses high effort, and all Luna profiles retain max effort.
+The Sol reviewer uses high effort, and all Luna profiles retain max effort
+with `service_tier = "fast"`.
 The Terra builder and reviewer profiles are retired. Arena and Interrogate
 use Astra/Sol/Luna for three-model panels, and Reflect uses Astra for its
 tooling lens. The installer removes the two retired profiles on update.
