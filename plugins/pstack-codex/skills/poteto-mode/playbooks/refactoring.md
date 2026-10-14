@@ -1,5 +1,7 @@
 ### Refactoring
 
+Before spawning, choose reasoning effort and service tier under the Subagents section and `../references/model-routing.md`, preserving explicit user settings.
+
 **You own the contract. The structure changes. The behavior does not.** Distinct from Feature, which adds behavior, and Bug fix, which corrects it.
 
 If the cleanup reveals a missing feature or a real bug, split it out and ship the structural change first against the pinned contract. A redesign is allowed, but name it and route to Feature. Large or cross-cutting structural work belongs to the **figure-it-out** skill. This playbook is the focused-to-medium change.

@@ -5,6 +5,8 @@ description: "Use for \"interrogate\", \"adversarial review\", \"multi-model rev
 
 # Interrogate
 
+Before each spawn, select the reasoning effort and service tier for the job under [model routing](../poteto-mode/references/model-routing.md). Preserve explicit user settings and the installed role profile; never substitute Cursor model slugs.
+
 Spawn the three Codex reviewer profiles to adversarially review code changes. Profile and model diversity creates independent blind spots; agreement is higher-confidence signal, while lone findings still deserve inspection. The deliverable is a synthesized verdict. Do NOT auto-apply changes.
 
 ## Review

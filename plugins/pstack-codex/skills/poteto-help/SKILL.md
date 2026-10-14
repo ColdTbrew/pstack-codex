@@ -52,11 +52,13 @@ The usual entry point for a requested non-trivial task is `$pstack-codex:poteto-
 | The user wants to | Skill |
 |---|---|
 | Do any non-trivial task with rigor | [`$pstack-codex:poteto-mode`](../poteto-mode/SKILL.md) |
+| Check the agent understood the goal before work | [`$pstack-codex:in-your-own-words`](../in-your-own-words/SKILL.md) |
+| Sharpen the expert approach and outcome before work | [`$pstack-codex:sharpen`](../sharpen/SKILL.md) |
 | Know how code works now, or where new code should live | [`$pstack-codex:how`](../how/SKILL.md) |
 | Know why code is shaped this way, or where a number came from | [`$pstack-codex:why`](../why/SKILL.md) |
 | Understand a change or subsystem, explained plainly | [`$pstack-codex:teach`](../teach/SKILL.md) |
 | Catch up on their own recent work on a topic | [`$pstack-codex:recall`](../recall/SKILL.md) |
-| Catch up on everything in this chat since their last message, with enough context to decide each action item | [`$pstack-codex:ketchup`](../ketchup/SKILL.md) |
+| Catch up on what changed in this chat since their last message, in plain sentences and small visuals, with enough context to decide action items | [`$pstack-codex:ketchup`](../ketchup/SKILL.md) |
 | Know what a small diff could break outside itself | [`$pstack-codex:blast-radius`](../blast-radius/SKILL.md) |
 | Settle types and module shape before code that crosses a function boundary | [`$pstack-codex:architect`](../architect/SKILL.md) |
 | Get several attempts at one brief, merged into the best one | [`$pstack-codex:arena`](../arena/SKILL.md) |

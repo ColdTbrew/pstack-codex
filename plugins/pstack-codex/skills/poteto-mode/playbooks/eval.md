@@ -1,5 +1,7 @@
 ### Eval
 
+Before spawning, choose reasoning effort and service tier under the Subagents section and `../references/model-routing.md`, preserving explicit user settings.
+
 **You own the experiment design. Plan, blind, run, synthesize.**
 
 **Non-negotiables for blinding:**

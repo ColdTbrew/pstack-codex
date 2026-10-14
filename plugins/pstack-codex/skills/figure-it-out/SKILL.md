@@ -5,6 +5,8 @@ description: "Design an auditable playbook when no narrower one fits: a large mi
 
 # Figure it out
 
+Before each spawn, select the reasoning effort and service tier for the job under [model routing](../poteto-mode/references/model-routing.md). Preserve explicit user settings and the installed role profile; never substitute Cursor model slugs.
+
 When no playbook fits, design one before writing code: a workflow whose phases scale rigor to the task, apply the scientific method, and leave an auditable decision trail.
 
 ## Start

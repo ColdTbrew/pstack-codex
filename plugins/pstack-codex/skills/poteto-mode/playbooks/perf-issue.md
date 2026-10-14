@@ -1,5 +1,7 @@
 ### Perf issue
 
+Before spawning, choose reasoning effort and service tier under the Subagents section and `../references/model-routing.md`, preserving explicit user settings.
+
 **You own the measurement story. Plan, review, verify the numbers.** Tie every fix to a measurement, don't read source instead of measuring.
 
 1. Capture a baseline trace via the matching control skill. Vet the baseline, and each later number, with the **benchmark-checklist** skill.

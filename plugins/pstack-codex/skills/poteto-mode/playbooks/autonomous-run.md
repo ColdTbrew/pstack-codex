@@ -1,5 +1,7 @@
 ### Autonomous run
 
+Before spawning, choose reasoning effort and service tier under the Subagents section and `../references/model-routing.md`, preserving explicit user settings.
+
 **You own the exit condition. Define done, then drive to it without stopping.**
 
 1. State the exit condition as a checkable predicate before the first iteration (tests green, repro fixed, all N PRs merged, pixel-diff zero).

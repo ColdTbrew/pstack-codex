@@ -63,6 +63,8 @@ PORT_OWNED_TARGETS = {
     "skills/poteto-mode/playbooks/visual-parity.md",
     "skills/poteto-mode/scripts/worktree-audit.sh",
     "skills/poteto-mode/scripts/check-plan.mjs",
+    "skills/poteto-mode/scripts/check-plan.test.mjs",
+    "skills/poteto-mode/scripts/package.json",
     "skills/reflect/SKILL.md",
     "skills/setup-pstack/SKILL.md",
     "skills/show-me-your-work/SKILL.md",
@@ -77,6 +79,8 @@ PORT_OWNED_TARGETS = {
 MANUAL_SOURCE_PATHS = {
     ".cursor-plugin/plugin.json",
     "README.md",
+    "plugin.json",
+    "skills/poteto-mode/scripts/check-plan.test.ts",
     *(path for path in PORT_OWNED_TARGETS if path.startswith("skills/")),
 }
 MANUAL_SOURCE_PREFIXES = ("agents/",)
@@ -366,6 +370,12 @@ def build_candidate(source: Path, candidate: Path, version: str, changed: bool) 
     move_if_present(candidate, "docs", "upstream-cursor-only/docs")
     move_if_present(candidate, ".cursor-plugin", "upstream-cursor-only/cursor-plugin")
     move_if_present(candidate, "README.md", "upstream-cursor-only/README.md")
+    move_if_present(candidate, "plugin.json", "upstream-cursor-only/plugin.json")
+    move_if_present(
+        candidate,
+        "skills/poteto-mode/scripts/check-plan.test.ts",
+        "upstream-cursor-only/check-plan.test.ts",
+    )
 
     skills_root = candidate / "skills"
     skill_names = sorted(path.name for path in skills_root.iterdir() if path.is_dir())

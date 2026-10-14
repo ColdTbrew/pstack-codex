@@ -7,7 +7,7 @@ Use this policy when selecting pstack agents. Explicit user choices take precede
 | Role | Profile or launch choice | Model | Reasoning |
 | --- | --- | --- | --- |
 | Root coordinator | Current chat, start with Astra | `gpt-6-astra` | `medium` |
-| Default end-to-end delegated owner | `poteto_agent` | `gpt-6.1-sol` | `medium` |
+| Default implementation delegate | `poteto_agent` | `gpt-6.1-sol` | `medium` |
 | Track sub-coordinator | General agent with an explicit track brief | `gpt-6.1-sol` | `medium` |
 | Difficult implementation | `pstack_builder_astra` | `gpt-6-astra` | `medium` |
 | Scoped feature or bug fix | `pstack_builder_sol` | `gpt-6.1-sol` | `medium` |
@@ -29,6 +29,18 @@ Use `poteto_agent` on Sol/medium for ordinary end-to-end implementation helpers.
 
 Keep implementation and verification in separate agents. A reviewer must not have written the artifact, including when builder and reviewer use the same model. Resolve findings with evidence rather than vote count alone.
 
+## Job-sensitive effort and speed
+
+Start every launch from its role's installed profile. When the user's settings allow
+adjustment, raise effort one supported level for unusually subtle work and lower it
+for routine work. Keep the role's model and the independent review composition.
+Use fast service only for urgency (red CI or trunk, or a person blocked now), unless
+an installed override fixes that tier; verification keeps its configured speed.
+The shipped Luna profiles remain max/fast, and explicit user choices always win.
+Codex expresses speed with `service_tier`, not a `-fast` model suffix. If the active
+launch API cannot adjust effort or tier, use the installed profile unchanged and
+report the limitation rather than inventing a slug or editing global settings.
+
 ## Mode composition
 
 | Mode | Ordinary work | Difficult or high-risk work |
@@ -38,6 +50,6 @@ Keep implementation and verification in separate agents. A reviewer must not hav
 | Interrogate reviewers | Sol + Luna reviewers; add Astra when a third independent review is warranted | Astra + Sol + Luna reviewers |
 | Swarm slices | Luna worker | Sol builder for scoped implementation; Astra builder for difficult implementation |
 
-Use fewer candidates when there are fewer meaningful alternatives. Fit every launch within the active session limit, counting the root and all descendants; the current four-agent limit leaves three child slots. Arena judges start after candidates finish.
+Use fewer candidates when there are fewer meaningful alternatives. Fit every launch within the active session limit, counting the root and all descendants. Derive available child slots from the actual session limit minus the root and active descendants. Arena judges start after candidates finish.
 
 If a profile is unavailable, report the missing role. Arena and interrogate may proceed with fewer independent participants and an explicit coverage gap; do not present a missing Astra review as completed. For individual implementation or review, use an available Sol profile as the disclosed fallback and retain the same acceptance criteria. If a Sol track coordinator cannot be launched, the root drains that track directly. Never silently change a model slug or count repeated instances of one model as model diversity.

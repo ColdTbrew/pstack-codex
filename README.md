@@ -22,7 +22,7 @@ directly:
 $pstack-codex:poteto-mode investigate this bug, fix the root cause, and verify it.
 ```
 
-The plugin currently contains 51 skills and 10 custom-agent profiles. The
+The plugin currently contains 53 skills and 10 custom-agent profiles. The
 custom agents use `gpt-6-astra` for demanding work, `gpt-6.1-sol` for scoped
 implementation and exploration, and `gpt-6-luna` for bounded mechanical work.
 See the [model routing policy](plugins/pstack-codex/skills/poteto-mode/references/model-routing.md)
@@ -31,6 +31,10 @@ for coordinator settings, review escalation, and mode composition.
 Invoke `$pstack-codex:ketchup` for a read-only catch-up on this chat since
 your last message, with the context needed to decide pending action items.
 Use `$pstack-codex:recall` for context on a topic across chats.
+
+Use `$pstack-codex:in-your-own-words` to check the goal before work, or
+`$pstack-codex:sharpen` to improve the approach and then do the task. The current
+chat owns Poteto Mode's playbook and plan; `poteto_agent` handles delegates.
 
 ## Update an installation
 
