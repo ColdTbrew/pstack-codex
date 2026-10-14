@@ -164,11 +164,13 @@ async function withFakeForge<T>({
   forge,
   operation,
   currentRows,
+  rootBase = "main",
 }: {
   directory: string;
   forge: Forge;
   operation: () => Promise<T>;
   currentRows?: string;
+  rootBase?: string;
 }): Promise<T> {
   const bin = join(directory, "bin");
   const outputPath = join(directory, "forge-output.txt");
@@ -207,7 +209,7 @@ case "$*" in
     printf '%s\\n' '${forgeRows(forge, [{ number: 13, state: "closed", head: "stack/closed", base: "stack/merged" }])}'
     ;;
   "${list("--head", "stack/merged")}")
-    printf '%s\\n' '${forgeRows(forge, [{ number: 10, state: "merged", head: "stack/merged", base: "main" }])}'
+    printf '%s\\n' '${forgeRows(forge, [{ number: 10, state: "merged", head: "stack/merged", base: rootBase }])}'
     ;;
   "${list("--base", "stack/open")}")
     printf '%s\\n' '${forgeRows(forge, [
@@ -573,6 +575,30 @@ describe("Store", () => {
       });
     });
 
+    it(`stops the ${forge} frontier at an explicit integration base`, async () => {
+      const { directory, store } = await initializedStore();
+      const stack = await makeGitStack(directory);
+      git({ repo: stack.repo, args: ["branch", "integration", "main"] });
+      git({ repo: stack.repo, args: ["symbolic-ref", "refs/remotes/origin/HEAD", "refs/remotes/origin/main"] });
+      await withFakeForge({
+        directory,
+        forge,
+        rootBase: "integration",
+        operation: async () => {
+          const result = await store.frontier.set({ repo: stack.repo, forge, base: "integration" });
+          expect(result.prs.map((pr) => pr.pr)).toEqual([10, 13, 11, 14]);
+          expect(result.lowestUnmerged).toBe(11);
+          git({ repo: stack.repo, args: ["checkout", "integration"] });
+          expect((await store.frontier.set({ repo: stack.repo, forge, base: "integration" })).prs).toEqual([]);
+          git({ repo: stack.repo, args: ["checkout", "stack/open"] });
+          await store.close();
+          const cli = runCli(["--store", directory, "--json", "frontier", "set", "--repo", stack.repo, "--forge", forge, "--base", "integration"]);
+          expect(cli.code).toBe(0);
+          expect(JSON.parse(cli.stdout).prs.map((pr: { pr: number }) => pr.pr)).toEqual([10, 13, 11, 14]);
+        },
+      });
+    });
+
     it(`rejects unparseable ${forge} output loudly`, async () => {
       const { directory, store } = await initializedStore();
       const stack = await makeGitStack(directory);
@@ -662,6 +688,7 @@ describe("orch CLI", () => {
     expect(frontierHelp.code).toBe(0);
     expect(frontierHelp.stdout).toContain("--repo <dir>");
     expect(frontierHelp.stdout).toContain("--forge <forge>");
+    expect(frontierHelp.stdout).toContain("--base <branch>");
     expect(frontierHelp.stdout).toContain("--prs <n,...>");
 
     const directory = await makeDirectory();

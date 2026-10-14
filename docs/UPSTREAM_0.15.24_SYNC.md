@@ -93,3 +93,23 @@ npx tsc --noEmit --strict --skipLibCheck --target esnext --module esnext \
 
 See `docs/UPSTREAM_SYNC.md` for future updates. Install the merged repository through
 its marketplace, then run `scripts/install-agents.sh` and start a new Codex task.
+
+## PR review follow-up
+
+Both P2 findings on PR #4 were fixed before landing:
+
+- `orch frontier set --base <branch>` stops discovery at the intended stack target,
+  including integration or release branches. The default remains origin/HEAD or
+  main. Missing intermediate PRs still fail loudly; they are not silently treated
+  as the stack base. The same option is available through `store.frontier.set`.
+- Ketchup prefers an installed visualize skill through its advertised invocation,
+  with Mermaid as another supported rendering path;
+  sessions without rendering can give a compact factual table or prose. It no
+  longer unconditionally requires a slash command or starts generation jobs.
+
+Two new real-Git/fake-forge regression tests first failed against the previous
+implementation and now pass for GitHub and Origin, including the actual CLI.
+Post-review validation passed 12 Node, 65 Bun, and 5 Python tests (82 total),
+strict typechecks for both CLIs, and all 53 skill validators. The converter now
+preserves these Codex-specific orchestration and Ketchup fixes and marks future
+upstream changes to them for manual reconciliation.

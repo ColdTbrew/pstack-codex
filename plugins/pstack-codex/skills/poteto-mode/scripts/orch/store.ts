@@ -168,6 +168,7 @@ export interface ResolveGateParams {
 export interface SetFrontierParams {
   readonly repo: string;
   readonly forge?: Forge;
+  readonly base?: string;
   readonly prs?: readonly number[];
 }
 
@@ -1181,8 +1182,13 @@ function trunkBranch(repo: string): string {
   }
 }
 
-function resolveFrontier(repo: string, forge: Forge): readonly FrontierPr[] {
-  const trunk = trunkBranch(repo);
+function resolveFrontier(
+  repo: string,
+  forge: Forge,
+  base?: string
+): readonly FrontierPr[] {
+  const trunk =
+    base === undefined ? trunkBranch(repo) : requiredLine(base, "stack base branch");
   const current = currentBranch(repo);
   if (current === trunk) {
     return [];
@@ -1562,7 +1568,7 @@ export function openStore(
           throw new UserError("--prs must not contain duplicates");
         }
         const old = await readFrontier(store);
-        const prs = resolveFrontier(repo, forge);
+        const prs = resolveFrontier(repo, forge, params.base);
         if (pin !== undefined) {
           validateFrontierPin({
             actual: prs.map((row) => row.pr),

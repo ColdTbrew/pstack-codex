@@ -25,7 +25,7 @@ class SyncCandidate(unittest.TestCase):
             (source / 'plugin.json').write_text('{"name":"pstack","version":"9.0.0"}')
             candidate = Path(directory) / 'candidate'
             sync.build_candidate(source, candidate, '9.0.0', True)
-            for relative in ('skills/poteto-mode/scripts/check-plan.mjs', 'skills/poteto-mode/scripts/check-plan.test.mjs', 'skills/poteto-mode/scripts/package.json', 'codex-agents/pstack_builder_luna.toml'):
+            for relative in ('skills/poteto-mode/scripts/check-plan.mjs', 'skills/poteto-mode/scripts/check-plan.test.mjs', 'skills/poteto-mode/scripts/package.json', 'codex-agents/pstack_builder_luna.toml', 'skills/ketchup/SKILL.md', 'skills/poteto-mode/scripts/orch/store.ts', 'skills/poteto-mode/scripts/orch/orch.ts'):
                 self.assertEqual((candidate / relative).read_bytes(), (plugin / relative).read_bytes())
             self.assertFalse((candidate / 'plugin.json').exists())
             self.assertFalse((candidate / 'skills/poteto-mode/scripts/check-plan.test.ts').exists())
@@ -34,7 +34,7 @@ class SyncCandidate(unittest.TestCase):
             sync.validate_plugin(candidate)
 
     def test_upstream_test_manifest_and_test_command_require_review(self):
-        for path in ('plugin.json', 'skills/poteto-mode/scripts/check-plan.test.ts', 'skills/poteto-mode/scripts/package.json'):
+        for path in ('plugin.json', 'skills/poteto-mode/scripts/check-plan.test.ts', 'skills/poteto-mode/scripts/package.json', 'skills/ketchup/SKILL.md', 'skills/poteto-mode/scripts/orch/store.ts'):
             self.assertTrue(sync.needs_manual_merge(path), path)
 
 if __name__ == '__main__':

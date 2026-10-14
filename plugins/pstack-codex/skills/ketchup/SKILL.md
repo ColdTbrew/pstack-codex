@@ -29,8 +29,10 @@ Show each action item as a before and after, side by side, in a visual. For a ch
 
 ## Visuals
 
-A visual is a picture: a screenshot, a video, a Mermaid diagram, a chart or diagram from `/visualize`, or a generated image. A Markdown table is not a visual, even with before and after columns.
+A visual is a picture: a screenshot, a video, a Mermaid diagram, a chart or diagram rendered with an installed Codex visualization skill, or a generated image. A Markdown table is not a visual, even with before and after columns.
 
 Keep each visual small enough to read at a glance: at most six boxes, with at most eight words in each, not counting "No screenshot yet." Write labels as plain words a person would say, not tags like "Tests: pass". Group small items into one box. A fact that needs a sentence belongs in the text, or nowhere.
 
-Use screenshots or a video when the change is visible. If a visible change has none, mark the box it belongs to "No screenshot yet," and say in a line under the visual what changed on screen. For anything else, draw the visual from facts you have: a Mermaid diagram for states, flows, and structures, and a `/visualize` chart for numbers. Never invent a number, and never draw or generate a picture of a screen you did not capture. Link only artifacts that exist.
+Use screenshots or a video when the change is visible. If a visible change has none, mark the box it belongs to "No screenshot yet," and say in a line under the visual what changed on screen. For anything else, draw the visual from facts you have: a Mermaid diagram for states, flows, and structures, and the installed `visualize` skill (for example `$work-visualize:visualize` when exposed under that name) or a Mermaid xychart for numbers. Never invent a number, and never draw or generate a picture of a screen you did not capture. Link only artifacts that exist.
+
+Discover rendering capabilities in the current Codex session. When the `visualize` plugin or skill is installed, use its advertised invocation and follow its instructions; ChatGPT Work may expose it as `$work-visualize:visualize`. Do not assume that every Codex CLI installation has that plugin or that `/visualize` is a universally available command. This pstack package does not bundle the visualization plugin. If chart tooling or diagram rendering is unavailable, use a compact table or plain factual sentences and state that visual rendering is unavailable. Never start a job or generate an image just to satisfy this read-only catch-up.
