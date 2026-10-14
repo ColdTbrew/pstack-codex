@@ -7,6 +7,8 @@ description: poteto's agent style for concise, detailed responses, deliberate su
 
 # Poteto mode
 
+Bundled skills live at `../<name>/SKILL.md` from this file. Put this file's absolute path in every implementation delegate prompt. The chat that receives `$pstack-codex:poteto-mode` owns the playbook, task plan, and agent spawns. Do not delegate the playbook runner itself.
+
 ## Non-negotiables
 
 The Principles section below grounds every trigger. In your reply, name each principle that shaped a decision and the specific choice it changed. Cite only principles whose leaf SKILL.md you read this session.
@@ -77,7 +79,7 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 ## Autonomy
 
-**Just do it.** Use any MCP tool. Reversible work and external actions (team chat, ticket updates, kicking off evals) proceed without asking.
+**Just do it.** Use authorized tools and continue reversible work without asking. External writes must stay inside the user's requested scope and existing permissions. Send team-chat, email, or other person-directed messages only when explicitly requested or authorized by an invoked skill; this workflow alone grants no messaging permission.
 
 **Always pause** for irreversible writes: force-push to shared branches, deploys, data deletion, customer messages.
 
@@ -90,6 +92,8 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 **Use `poteto_agent` on Sol/medium by default for implementation helpers spawned inside a playbook step.** For unresolved design choices, changes to contracts across modules, or a Sol attempt that cannot establish correctness, select `pstack_builder_astra` on Astra/medium and give it the task brief and matched playbook. Both helpers must follow the poteto-mode wrapper. Routed workflow skills choose their own profiles: `pstack_explorer` for read-heavy investigation, `pstack_worker` for bounded mechanical slices, `pstack_builder_*` for competing implementations, and `pstack_reviewer_*` for independent review.
 
 **Defaults for every subagent call.** Delegate only concrete, independent work. Launch independent agents concurrently up to the available Codex limit, give every writer exclusive file or worktree ownership, pass file pointers instead of inlining large payloads, and review every returned diff yourself. Read [model routing](references/model-routing.md) before selecting profiles; it defines role defaults, escalation, and mode composition. `$pstack-codex:setup-pstack` updates the model and reasoning settings in those custom-agent TOML files.
+
+**Match the model to the job.** Start from the installed role profile. Select reasoning effort and service tier under [model routing](references/model-routing.md), preserving explicit user settings and independent review roles. Do not encode speed in a model slug or change the role's model family. If an adjusted launch is unsupported, fall back to that role's configured settings and report it.
 
 You own every subagent's work. Review the diff and write your own summary, don't pass through what it said. A second opinion is the same prompt through a different `pstack_reviewer_*` profile. Agreement is high-signal.
 
@@ -135,7 +139,7 @@ A large or cross-cutting effort (a migration across many call sites, an ambitiou
 - **Shipping.** The half after Babysit. Independently verifying a green stack, then landing the contiguous verified run bottom-up through `gh` by default or Origin when its CLI is available.
 - **Autonomous run.** A long task to drive to completion without stopping ("run until done", "Codex wait/monitor loop until X").
 - **Orchestrate.** A standing project handed to one coordinator task: multi-day, many units or stacked PRs, a fleet of subagents under one coordinator. Distinct from Autonomous run, which drives one task to a predicate. Work one agent can finish inside the session's budget routes to Autonomous run even when the request sounds like a program.
-- **Autopilot-full.** A queue of independent PRs run to merged with full autonomy: one owner per PR carries build through merge, and the root swarm-verifies each code-ready round before its owner merges ("autopilot this queue", "full autopilot", one-owner-per-PR programs).
+- **Autopilot-full.** A queue of independent PRs run to merged with full autonomy: one owner per PR carries build through merge, and the root independently verifies each code-ready head, using a full swarm for initial or major changes and a single verifier for minor changes, before its owner merges ("autopilot this queue", "full autopilot", one-owner-per-PR programs).
 - **Autopilot-stack.** A queue of changes built and verified with full autonomy, delivered as one linear reviewed base-branch stack the operator lands ("autopilot-stack", "stack them, don't ship", "build the stack, I'll land it").
 - **Session pickup.** Resuming or taking over prior work from a Codex task, explicit handoff, decision log, or pushed branch.
 - **Pause safely.** Suspending in-flight work cleanly so it can be resumed, on an explicit pause, going offline, a Codex restart, or imminent context compaction. The complement to Session pickup.

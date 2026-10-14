@@ -5,6 +5,8 @@ description: "Spawn N parallel candidates at the same task, pick a base, graft t
 
 # Arena
 
+Before each spawn, select the reasoning effort and service tier for the job under [model routing](../poteto-mode/references/model-routing.md). Preserve explicit user settings and the installed role profile; never substitute Cursor model slugs.
+
 Fan out N parallel attempts at the same task; read every candidate end to end, pick the strongest base, graft in the best ideas from the others, and verify the synthesis.
 
 ## Start

@@ -5,6 +5,8 @@ description: "Fan out N parallel workers, drain them, and return one report. Use
 
 # Swarm
 
+Before each spawn, select the reasoning effort and service tier for the job under [model routing](../poteto-mode/references/model-routing.md). Preserve explicit user settings and the installed role profile; never substitute Cursor model slugs.
+
 Fan out N Codex workers. They may cover separate slices, race the same brief, or mix both. The parent drains them, aggregates, and returns one report.
 
 ## Start

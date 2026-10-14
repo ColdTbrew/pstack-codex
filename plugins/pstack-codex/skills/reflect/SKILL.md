@@ -5,6 +5,8 @@ description: Spawn three parallel review subagents over the active transcript, s
 
 # Reflect
 
+Before each spawn, select the reasoning effort and service tier for the job under [model routing](../poteto-mode/references/model-routing.md). Preserve explicit user settings and the installed role profile; never substitute Cursor model slugs.
+
 Mine the current conversation for durable learnings, then route them into skill edits.
 
 ## When to invoke

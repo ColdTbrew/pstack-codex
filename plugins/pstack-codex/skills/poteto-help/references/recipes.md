@@ -5,6 +5,8 @@ Swap in the real paths, skills, and done checks. Informal wording works.
 ## Understand
 
 - `$pstack-codex:poteto-mode read <thread>. restate the underlying issue in your own words, in plain english.`
+- `$pstack-codex:in-your-own-words <long or messy ask>`
+- `$pstack-codex:sharpen <your task>`
 - `$pstack-codex:poteto-mode investigate why <symptom>. give me what we know, what data you used, and your best hypotheses. don't change any code yet.`
 - `use $pstack-codex:how to understand <subsystem>. then use $pstack-codex:why to find out why it broke recently.`
 - `$pstack-codex:recall my work on <topic> from last week, then read <issue>.`

@@ -4,7 +4,7 @@
 
 1. When the change is one or two files with an obvious approach, skip the plan. Say so and stop.
 2. Settle open questions by prototype before you write. Run `playbooks/prototype.md` for each. Keep the branch, the SHA, and the screenshots for Appendix A. Ask the operator only about a product or preference call that no run can settle. Give options (the **never-block-on-the-human** principle skill).
-3. Explore in `poteto_agent` or `pstack_explorer` subagents per the Subagents section (the **guard-the-context-window** principle skill). Each returns file pointers, conventions, test commands, and entry points. No inlined dumps.
+3. Pick reasoning effort and service tier per the Subagents section, preserving explicit user settings. Explore in `poteto_agent` or `pstack_explorer` subagents per the Subagents section (the **guard-the-context-window** principle skill). Each returns file pointers, conventions, test commands, and entry points. No inlined dumps.
 4. Copy the skeleton below into the plan file and fill every placeholder. Unless the operator names a path, write the file under the agent store's `docs/`. Keep every heading and every sub-block in the order shown. One section per PR. One PR is one change with its own evidence (the **sequence-verifiable-units** principle skill). Name the execution playbook in **How to read this**. Pick between `playbooks/autopilot-full.md` and `playbooks/autopilot-stack.md` per the rule at the end of `playbooks/autopilot-stack.md`. A standing program takes `playbooks/orchestrate.md`.
 5. Write under `$pstack-codex:technical-writing` in full, then `$pstack-codex:unslop`. The body is one Diátaxis mode, how-to. Appendices hold explanation and reference. Two rules apply verbatim. "i dont want any abstract metaphors" and "write like hemingway". Each heading states the task or the finding. No long dashes. No mid-sentence colons.
 6. Resolve the installed `pstack-codex` plugin root, run `node <plugin-root>/skills/poteto-mode/scripts/check-plan.mjs <plan.md>`, and fix every line it prints (the **encode-lessons-in-structure** principle skill). It enforces the skeleton's shape, the verification rule in every verification block, and the punctuation rules.
@@ -32,12 +32,12 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 ### Arm the program
 
 - [ ] State the protocol and this plan to the operator, then stop. Start execution only on the operator's explicit go.
-- [ ] Read these from trunk at program start. Re-read them at every tick.
+- [ ] Resolve and record the installed plugin root at program start. Re-read bundled skills from that same installed root at every tick. Read target-repository control skills from its actual trunk; do not assume the target contains the plugin source.
   - [ ] Read `<plugin-root>/skills/poteto-mode/playbooks/<execution playbook>.md`.
   - [ ] Read `<plugin-root>/skills/swarm/SKILL.md`.
-  - [ ] `git show origin/main:<control skill path>`
+  - [ ] `git show origin/main:<repository-owned control skill path>` (substitute the target's actual trunk ref).
   - [ ] Read `<plugin-root>/skills/poteto-mode/playbooks/opening-a-pr.md`.
-  - [ ] `git show origin/main:pstack/skills/<each other leaf skill the program uses>`
+  - [ ] Read `<plugin-root>/skills/<each other leaf skill the program uses>/SKILL.md`.
 - [ ] Arm an audit cadence proportional to the job using Codex task waits, watcher output, or a user-requested automation.
 - [ ] At each audit, re-read the execution playbook. Probe every active lane, judge progress by side effects, replace stuck lanes, and report only changed state, open gates, and blockers.
 - [ ] Log every audit tick, including ticks with no newly reportable change. Never repeat an unchanged status table or blocker.
@@ -59,12 +59,12 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 - [ ] Run the repo's lint and typecheck once before the PR-facing push. Push with hooks on.
 - [ ] Run `$pstack-codex:unslop` before each commit and `$pstack-codex:no-comments` before review.
 - [ ] Triage every Bugbot and security-reviewer comment per `../references/bugbot-triage.md`.
-- [ ] Rebase onto current trunk before the code-ready report and babysit. Keep that merge base in fix rounds. Rebase again only at merge prep, on a `git merge-tree` conflict with trunk, or on a CI failure that comes from a change on trunk.
+- [ ] Follow the execution playbook's topology rules. Autopilot-full owners rebase onto trunk before code-ready and keep that base in fix rounds unless trunk conflicts or breaks CI. Autopilot-stack owners never rebase; the root owns chain changes. Merge prep and later trunk drift follow Autopilot-full step 5 and Shipping's patch-id rule.
 
 ### Verdict and merge, for every PR
 
-- [ ] At the code-ready head SHA and at each later push that changes the patch, run the swarm per `<plugin-root>/skills/swarm/SKILL.md`. One gates lane. Every declared live lane from the PR's **Verify, live** block. The perf lane from its **Verify, perf** block. Two or more audit lanes, each with its own focus, that read the diff and the receipts and distrust the PR body. The root audits the receipts in the merge-ready report before the verdict.
-- [ ] Clean only when every lane is `PASS`. Findings go back to the owner, including a defect that a lane filed as a note. A new head gets a fresh swarm and a fresh verdict, except for results that stay valid under the patch-id rule in `playbooks/shipping.md`.
+- [ ] A full swarm runs once at the code-ready head and again only for new behavior, a redesign, or a large new diff. A rebase, conflict resolution, or minor fix gets a single independent verifier at the new head. Run each full swarm per `<plugin-root>/skills/swarm/SKILL.md`. One gates lane. Every declared live lane from the PR's **Verify, live** block. The perf lane from its **Verify, perf** block. Two or more audit lanes, each with its own focus, that read the diff and the receipts and distrust the PR body. The root audits the receipts in the merge-ready report before the verdict.
+- [ ] Clean only when every lane is `PASS`. Findings go back to the owner, including a defect that a lane filed as a note. A new head gets a fresh verdict, except for results that stay valid under the patch-id rule in `playbooks/shipping.md`.
 - [ ] Run lanes in waves within the active Codex concurrency limit.
 - [ ] <The merge or append rule from the execution playbook, with the patch-id rule from `playbooks/shipping.md`.>
 
@@ -122,7 +122,7 @@ Each live lane runs on its own isolated Codex worktree at the PR head. Drive thr
 
 - [ ] Root's clean verdict at the exact head SHA.
 - [ ] Bugbot triage done.
-- [ ] Rebased onto current trunk after the verdict, patch-id unchanged.
+- [ ] Base is the one required by the execution playbook. In a review stack, the child remains based on its parent until landing. After any root-owned rebase, re-check patch-id, verdict, and CI on the new head.
 - [ ] <The owner squash-merges its own PR, or the root appends it to the base-branch stack and the operator lands it bottom-up.>
 
 ## Close the program

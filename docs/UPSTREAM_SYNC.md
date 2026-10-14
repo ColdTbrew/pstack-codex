@@ -62,6 +62,10 @@ skill inventory in both READMEs and `CODEX_PORT.md` when adding skills.
 Reject new unresolved Cursor runtime dependencies such as `Task(...)`,
 `subagent_type`, `run_in_background`, `.cursor/skills`, or `/loop`.
 
+The generic upstream `plugin.json` and Cursor-specific `check-plan.test.ts`
+are preserved under `upstream-cursor-only/`. Keep the Codex Node regression
+tests and package test command. These boundaries are manual-review entries.
+
 ## 4. Apply only the reviewed candidate
 
 ```bash
@@ -85,6 +89,11 @@ codex plugin marketplace upgrade pstack-codex
 codex plugin add pstack-codex@pstack-codex
 bash scripts/install-agents.sh
 ```
+
+Run `python -m unittest discover -s scripts/tests -v` and, in the plugin's
+`skills/poteto-mode/scripts/` directory, `npm test` and `npm run typecheck`
+with Bun and the project dependencies installed. Also typecheck the orchestration
+CLI. Confirm every companion profile and explicit skill invocation still resolves.
 
 Then inspect the diff, commit the plugin and lock together, push, and test from
 a new Codex task. Never advance the lock without the matching reviewed port.
