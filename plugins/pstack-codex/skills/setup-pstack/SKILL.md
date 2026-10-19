@@ -26,3 +26,9 @@ Configure the `pstack_*`, `poteto_agent`, and `comment_sicko` profiles under
    `developer_instructions` intact unless the user asks to change behavior.
 5. Validate every TOML file by parsing it and tell the user to start a new Codex task
    if the active task does not pick up the changed profiles.
+
+## Optional project verification
+
+After setup, check whether the project has an app harness or a `verify-*` skill. If it has neither, offer once to generate one with `$pstack-codex:create-verification-skill`. Run it only if the user accepts.
+
+If the project has no formal verification skill, offer once to generate one with `$pstack-codex:create-formal-verification-skill` for a property that tests rarely reach. Explain that a proof covers its stated model, bounds, and assumptions. Run it only if the user accepts; move on after a decline. Respect the project's test-file creation policy.

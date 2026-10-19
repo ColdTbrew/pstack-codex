@@ -23,6 +23,7 @@ Check state only when it changes the answer:
 
 - Inspect the relevant `~/.codex/agents/*.toml` files. An existing directory does not prove pstack's profiles are installed. Missing profiles need the companion installation from the repository README; distinguish shipped defaults from installed overrides.
 - If the project has no `verify-*` skill or app harness, mention [create-verification-skill](../create-verification-skill/SKILL.md) when the question is about proving an app change works. Respect the project's test-file creation policy.
+- If the question concerns a race, invariant, or a case tests rarely reach and the project has no formal verification skill, mention [create-formal-verification-skill](../create-formal-verification-skill/SKILL.md). A pass covers only its stated model, bounds, and assumptions.
 - When setup or cost depends on model choice, offer [setup-pstack](../setup-pstack/SKILL.md) once. It inspects real models and changes only requested profiles. Do not invent a model or modify profiles during a help question.
 
 ## Get set up
@@ -30,7 +31,7 @@ Check state only when it changes the answer:
 Use the repository README's installation commands and inspect configured marketplaces before recommending an update. The standard public marketplace is `pstack-codex`; an existing local installation may use a different name such as `personal`.
 
 1. Install the Codex plugin and companion custom-agent profiles as described in the README.
-2. Invoke `$pstack-codex:setup-pstack` if the user wants to change the role mapping. It updates TOML profiles, not the root chat model.
+2. Invoke `$pstack-codex:setup-pstack` if the user wants to change the role mapping. It updates TOML profiles, not the root chat model, then offers missing app and formal verification skills once each. Generation requires acceptance.
 3. Start a new Codex task after installation or profile changes, then invoke `$pstack-codex:poteto-mode` with a goal and a check that can pass or fail.
 
 All registered pstack-codex skills require explicit invocation through `$pstack-codex:<skill-name>`. Installing the plugin alone does not activate its workflows. Do not promise Cursor Custom Modes, keyboard shortcuts, or slash commands in Codex.
@@ -58,7 +59,7 @@ The usual entry point for a requested non-trivial task is `$pstack-codex:poteto-
 | Know why code is shaped this way, or where a number came from | [`$pstack-codex:why`](../why/SKILL.md) |
 | Understand a change or subsystem, explained plainly | [`$pstack-codex:teach`](../teach/SKILL.md) |
 | Catch up on their own recent work on a topic | [`$pstack-codex:recall`](../recall/SKILL.md) |
-| Catch up on what changed in this chat since their last message, in plain sentences and small visuals, with enough context to decide action items | [`$pstack-codex:ketchup`](../ketchup/SKILL.md) |
+| Catch up on what changed in this chat since their last message, in plain words and small visuals, with every pending user decision explained in the reply | [`$pstack-codex:ketchup`](../ketchup/SKILL.md) |
 | Know what a small diff could break outside itself | [`$pstack-codex:blast-radius`](../blast-radius/SKILL.md) |
 | Settle types and module shape before code that crosses a function boundary | [`$pstack-codex:architect`](../architect/SKILL.md) |
 | Get several attempts at one brief, merged into the best one | [`$pstack-codex:arena`](../arena/SKILL.md) |
@@ -72,6 +73,7 @@ The usual entry point for a requested non-trivial task is `$pstack-codex:poteto-
 | Hear the last reply again in plain words | [`$pstack-codex:bro`](../bro/SKILL.md) |
 | Give agents a scripted way to drive the app and prove behavior | [`$pstack-codex:create-verification-skill`](../create-verification-skill/SKILL.md) |
 | Bring a verification skill and its feature map back in line with the app | [`$pstack-codex:maintain-verification-skill`](../maintain-verification-skill/SKILL.md) |
+| Formally verify a race, invariant, or property tests rarely reach | [`$pstack-codex:create-formal-verification-skill`](../create-formal-verification-skill/SKILL.md) |
 | Vet a performance number before reporting or acting on it | [`$pstack-codex:benchmark-checklist`](../benchmark-checklist/SKILL.md) |
 | Run a large or cross-cutting change, or one to review after stepping away | [`$pstack-codex:figure-it-out`](../figure-it-out/SKILL.md) |
 | Keep a decision log during a run, and review it afterward | [`$pstack-codex:show-me-your-work`](../show-me-your-work/SKILL.md) |

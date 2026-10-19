@@ -1,6 +1,6 @@
 {
   "name": "pstack-codex",
-  "version": "0.15.24+codex.20261014122331",
+  "version": "0.15.27+codex.20261019023951",
   "description": "A Codex-native port of pstack's rigorous engineering workflows, principles, and multi-agent playbooks.",
   "author": {
     "name": "Lauren Tan; Codex port by seunghyuk-DQ"

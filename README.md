@@ -22,7 +22,7 @@ directly:
 $pstack-codex:poteto-mode investigate this bug, fix the root cause, and verify it.
 ```
 
-The plugin currently contains 53 skills and 10 custom-agent profiles. The
+The plugin currently contains 54 skills and 10 custom-agent profiles. The
 custom agents use `gpt-6-astra` for demanding work, `gpt-6.1-sol` for scoped
 implementation and exploration, and `gpt-6-luna` for bounded mechanical work.
 See the [model routing policy](plugins/pstack-codex/skills/poteto-mode/references/model-routing.md)
@@ -73,3 +73,5 @@ provenance but are not registered with Codex.
 
 MIT. Original pstack copyright belongs to Lauren Tan. See
 [`NOTICE.md`](NOTICE.md) for attribution and port-maintainer details.
+
+Invoke `$pstack-codex:create-formal-verification-skill` to verify a property that tests rarely reach and generate a project-local recheck workflow with explicit bounds and assumptions.

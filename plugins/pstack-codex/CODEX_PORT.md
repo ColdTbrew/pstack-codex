@@ -1,6 +1,6 @@
 # pstack-codex port notes
 
-This package derives from `cursor/plugins/pstack` 0.15.24 under the MIT license.
+This package derives from `cursor/plugins/pstack` 0.15.27 under the MIT license.
 
 The Codex port packages the reusable skills as a Codex plugin and provides
 standalone custom-agent TOML files under `codex-agents/`. Cursor-only Grok Bot
@@ -20,6 +20,18 @@ Runtime mappings:
 
 The exact upstream commit and update procedure are tracked by the containing
 repository's `upstream-lock.json` and `docs/UPSTREAM_SYNC.md`.
+
+## Upstream 0.15.27 reconciliation
+
+The update pins `cursor/plugins` at `6b78e9f4e46c75d1697d837e51f07c2692e60b24`.
+
+- Add Create Formal Verification Skill and discovery entries; 54 skills remain explicit-only.
+- Offer missing app and formal verification skills after setup, only on acceptance.
+- Port Ketchup's complete pending-decision list, evidence, risk, and inline media guidance.
+- Adopt behavioral test criteria, root-cause and premise checks, and TypeScript guidance.
+- Keep Codex wave sizing and all 10 model profiles. Claude Code harness instructions,
+  manifests, and Cursor guides remain provenance under `upstream-cursor-only/`.
+- Preserve opt-in test-file creation in the new formal verification workflow.
 
 ## Upstream 0.15.24 reconciliation
 
@@ -161,6 +173,6 @@ The update pins `cursor/plugins` at
 
 ## Invocation policy
 
-All 53 registered skills use `allow_implicit_invocation: false`. Invoke them
+All 54 registered skills use `allow_implicit_invocation: false`. Invoke them
 explicitly with `$pstack-codex:<skill-name>`. The upstream converter applies
 this policy to every skill, including skills added by future updates.
