@@ -22,7 +22,7 @@ directly:
 $pstack-codex:poteto-mode investigate this bug, fix the root cause, and verify it.
 ```
 
-The plugin currently contains 54 skills and 10 custom-agent profiles. The
+The plugin currently contains 57 skills and 10 custom-agent profiles. The
 custom agents use `gpt-6-astra` for demanding work, `gpt-6.1-sol` for scoped
 implementation and exploration, and `gpt-6-luna` for bounded mechanical work.
 See the [model routing policy](plugins/pstack-codex/skills/poteto-mode/references/model-routing.md)
@@ -33,8 +33,8 @@ your last message, with the context needed to decide pending action items.
 Use `$pstack-codex:recall` for context on a topic across chats.
 
 Use `$pstack-codex:in-your-own-words` to check the goal before work, or
-`$pstack-codex:sharpen` to improve the approach and then do the task. The current
-chat owns Poteto Mode's playbook and plan; `poteto_agent` handles delegates.
+`$pstack-codex:sharpen` to rewrite a prompt with expert methods and an outside check,
+without doing the task. The current chat owns Poteto Mode's playbook and plan; `poteto_agent` handles delegates.
 
 ## Update an installation
 
@@ -75,3 +75,7 @@ MIT. Original pstack copyright belongs to Lauren Tan. See
 [`NOTICE.md`](NOTICE.md) for attribution and port-maintainer details.
 
 Invoke `$pstack-codex:create-formal-verification-skill` to verify a property that tests rarely reach and generate a project-local recheck workflow with explicit bounds and assumptions.
+
+Invoke `$pstack-codex:statechart` to draw a checked statechart from a TLA+ model,
+`$pstack-codex:maintain-formal-verification-skill` to refresh verification after code changes,
+or `$pstack-codex:ketchup-video` for a short silent catch-up video.

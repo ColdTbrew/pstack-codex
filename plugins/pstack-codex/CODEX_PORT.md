@@ -1,6 +1,6 @@
 # pstack-codex port notes
 
-This package derives from `cursor/plugins/pstack` 0.15.27 under the MIT license.
+This package derives from `cursor/plugins/pstack` 0.15.32 under the MIT license.
 
 The Codex port packages the reusable skills as a Codex plugin and provides
 standalone custom-agent TOML files under `codex-agents/`. Cursor-only Grok Bot
@@ -20,6 +20,23 @@ Runtime mappings:
 
 The exact upstream commit and update procedure are tracked by the containing
 repository's `upstream-lock.json` and `docs/UPSTREAM_SYNC.md`.
+
+## Upstream 0.15.32 reconciliation
+
+The update pins `cursor/plugins` at `9580c23696ac8d7abed0c166f2f9918800afb819`.
+
+- Add Statechart, Ketchup Video, and Maintain Formal Verification Skill;
+  all 57 registered skills remain explicit-only.
+- Sharpen returns an improved prompt without executing the task.
+- Formal verification records covered code and the last synchronized commit,
+  and routes TLA+ results through Statechart.
+- Fix fork-aware PR stack discovery, polling deadline sleeps, active PR selection
+  alongside closed history, and multi-backtick plan parsing.
+- Select GNU or BSD timestamp flags once while retaining Codex transcript lookup.
+- Reflect edits an approved user-owned copy instead of an installed cache;
+  its workflow does not open PRs or push.
+- Preserve all 10 model profiles, bounded waves, Codex plan regression tests,
+  and opt-in creation of tests, fixtures, and test-only helpers.
 
 ## Upstream 0.15.27 reconciliation
 
@@ -173,6 +190,6 @@ The update pins `cursor/plugins` at
 
 ## Invocation policy
 
-All 54 registered skills use `allow_implicit_invocation: false`. Invoke them
+All 57 registered skills use `allow_implicit_invocation: false`. Invoke them
 explicitly with `$pstack-codex:<skill-name>`. The upstream converter applies
 this policy to every skill, including skills added by future updates.

@@ -6,7 +6,7 @@ Swap in the real paths, skills, and done checks. Informal wording works.
 
 - `$pstack-codex:poteto-mode read <thread>. restate the underlying issue in your own words, in plain english.`
 - `$pstack-codex:in-your-own-words <long or messy ask>`
-- `$pstack-codex:sharpen <your task>`
+- `$pstack-codex:sharpen <the prompt you're about to send>`
 - `$pstack-codex:poteto-mode investigate why <symptom>. give me what we know, what data you used, and your best hypotheses. don't change any code yet.`
 - `use $pstack-codex:how to understand <subsystem>. then use $pstack-codex:why to find out why it broke recently.`
 - `$pstack-codex:recall my work on <topic> from last week, then read <issue>.`
@@ -34,7 +34,7 @@ Swap in the real paths, skills, and done checks. Informal wording works.
 ## Review and ship
 
 - `$pstack-codex:interrogate the whole branch, but skeptically. don't change anything yet. no nitpicks unless it's a real bug or regression.` Read the dismissals too.
-- `$pstack-codex:create-formal-verification-skill prove <property> holds in <module>, even when <steps> interleave or retry.`
+- `$pstack-codex:create-formal-verification-skill prove <property> holds in <module>, even when <steps> interleave or retry.` After merges or refactors in that code: `$pstack-codex:maintain-formal-verification-skill`.
 - `$pstack-codex:swarm check every package under <dir> against its check script. one worker per package. one report.`
 - `$pstack-codex:poteto-mode open the pr. small ordered commits, evidence in the description.`
 - `$pstack-codex:poteto-mode babysit this pr. get it green.` For status only: `$pstack-codex:poteto-mode check on pr <number>. anything outstanding?`

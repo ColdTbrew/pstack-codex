@@ -39,6 +39,8 @@ Spawn `pstack_reviewer_sol` as synthesizer. Use `references/synthesizer.md` verb
 
 Present the synthesizer's full Accepted/Rejected/Backlog output and wait for explicit approval. The user selects the subset and may redirect routings. Skill changes affect every future agent; do not auto-apply. File Backlog items automatically to the team's devex/backlog tracker; only Accepted waits for approval.
 
+Never edit a skill under `plugins/cache/`. Before approval, show its destination, `.agents/skills/<skill>/` or `~/.agents/skills/<skill>/`. After approval, copy the skill folder there and edit the copy. Never open a PR or push.
+
 Follow each approved item's Routing exactly:
 
 - Trivial existing-skill edit (one-line bullet, tightened sentence, stale fact): parent does it directly.

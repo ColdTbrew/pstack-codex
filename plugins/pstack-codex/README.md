@@ -20,9 +20,9 @@ Useful direct workflows include `$pstack-codex:how`, `$pstack-codex:why`,
 
 Use `$pstack-codex:ketchup` for a read-only catch-up on this chat since your
 last message, including pending decisions. Use `$pstack-codex:recall` to
-rebuild context on a topic across chats. All 54 skills are explicit-only.
+rebuild context on a topic across chats. All 57 skills are explicit-only.
 
-Use `$pstack-codex:in-your-own-words` to restate the goal before work, and `$pstack-codex:sharpen` to improve the approach and then execute it.
+Use `$pstack-codex:in-your-own-words` to restate the goal before work, and `$pstack-codex:sharpen` to rewrite the prompt with expert methods and an outside check, without doing the task.
 
 The chat receiving `$pstack-codex:poteto-mode` owns the playbook and task plan. `poteto_agent` handles delegated slices; do not launch it as the playbook runner.
 
@@ -48,3 +48,7 @@ maintained at <https://github.com/ColdTbrew/pstack-codex>.
 Original pstack is by Lauren Tan and distributed under the MIT license.
 
 Use `$pstack-codex:create-formal-verification-skill` to verify a property that tests rarely reach and leave a project-local recheck workflow. Each result states its bounds and assumptions.
+
+Invoke `$pstack-codex:statechart` to draw a checked statechart from a TLA+ model,
+`$pstack-codex:maintain-formal-verification-skill` to refresh verification after code changes,
+or `$pstack-codex:ketchup-video` for a short silent catch-up video.

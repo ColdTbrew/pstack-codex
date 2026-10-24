@@ -23,7 +23,7 @@ Check state only when it changes the answer:
 
 - Inspect the relevant `~/.codex/agents/*.toml` files. An existing directory does not prove pstack's profiles are installed. Missing profiles need the companion installation from the repository README; distinguish shipped defaults from installed overrides.
 - If the project has no `verify-*` skill or app harness, mention [create-verification-skill](../create-verification-skill/SKILL.md) when the question is about proving an app change works. Respect the project's test-file creation policy.
-- If the question concerns a race, invariant, or a case tests rarely reach and the project has no formal verification skill, mention [create-formal-verification-skill](../create-formal-verification-skill/SKILL.md). A pass covers only its stated model, bounds, and assumptions.
+- If the question concerns a race, invariant, or a case tests rarely reach and the project has no formal verification skill, mention [create-formal-verification-skill](../create-formal-verification-skill/SKILL.md). A pass covers only its stated model, bounds, and assumptions. When an existing formal verification skill covers code that changed after its recorded sync commit, mention [maintain-formal-verification-skill](../maintain-formal-verification-skill/SKILL.md) if the question concerns keeping verification current or judging a failure.
 - When setup or cost depends on model choice, offer [setup-pstack](../setup-pstack/SKILL.md) once. It inspects real models and changes only requested profiles. Do not invent a model or modify profiles during a help question.
 
 ## Get set up
@@ -54,12 +54,13 @@ The usual entry point for a requested non-trivial task is `$pstack-codex:poteto-
 |---|---|
 | Do any non-trivial task with rigor | [`$pstack-codex:poteto-mode`](../poteto-mode/SKILL.md) |
 | Check the agent understood the goal before work | [`$pstack-codex:in-your-own-words`](../in-your-own-words/SKILL.md) |
-| Sharpen the expert approach and outcome before work | [`$pstack-codex:sharpen`](../sharpen/SKILL.md) |
+| Rewrite a prompt with expert methods and an outside check, without doing the task | [`$pstack-codex:sharpen`](../sharpen/SKILL.md) |
 | Know how code works now, or where new code should live | [`$pstack-codex:how`](../how/SKILL.md) |
 | Know why code is shaped this way, or where a number came from | [`$pstack-codex:why`](../why/SKILL.md) |
 | Understand a change or subsystem, explained plainly | [`$pstack-codex:teach`](../teach/SKILL.md) |
 | Catch up on their own recent work on a topic | [`$pstack-codex:recall`](../recall/SKILL.md) |
 | Catch up on what changed in this chat since their last message, in plain words and small visuals, with every pending user decision explained in the reply | [`$pstack-codex:ketchup`](../ketchup/SKILL.md) |
+| Watch the catch-up as a short silent video, with pending decisions as text | [`$pstack-codex:ketchup-video`](../ketchup-video/SKILL.md) |
 | Know what a small diff could break outside itself | [`$pstack-codex:blast-radius`](../blast-radius/SKILL.md) |
 | Settle types and module shape before code that crosses a function boundary | [`$pstack-codex:architect`](../architect/SKILL.md) |
 | Get several attempts at one brief, merged into the best one | [`$pstack-codex:arena`](../arena/SKILL.md) |
@@ -74,6 +75,8 @@ The usual entry point for a requested non-trivial task is `$pstack-codex:poteto-
 | Give agents a scripted way to drive the app and prove behavior | [`$pstack-codex:create-verification-skill`](../create-verification-skill/SKILL.md) |
 | Bring a verification skill and its feature map back in line with the app | [`$pstack-codex:maintain-verification-skill`](../maintain-verification-skill/SKILL.md) |
 | Formally verify a race, invariant, or property tests rarely reach | [`$pstack-codex:create-formal-verification-skill`](../create-formal-verification-skill/SKILL.md) |
+| Bring formal verification back in line with changed code and distinguish drift from bugs | [`$pstack-codex:maintain-formal-verification-skill`](../maintain-formal-verification-skill/SKILL.md) |
+| Show a system or bug as a checked statechart, derive a TLA+ skeleton from an agreed chart, or audit code against its spec | [`$pstack-codex:statechart`](../statechart/SKILL.md) |
 | Vet a performance number before reporting or acting on it | [`$pstack-codex:benchmark-checklist`](../benchmark-checklist/SKILL.md) |
 | Run a large or cross-cutting change, or one to review after stepping away | [`$pstack-codex:figure-it-out`](../figure-it-out/SKILL.md) |
 | Keep a decision log during a run, and review it afterward | [`$pstack-codex:show-me-your-work`](../show-me-your-work/SKILL.md) |
