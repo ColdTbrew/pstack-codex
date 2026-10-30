@@ -21,15 +21,15 @@ Choose up to three runners to keep root plus candidates within Codex's normal fo
 
 ### B. Fan out
 
-Spawn candidates concurrently with the same task and grounding, their custom-agent profile, and exclusive output paths. Require the artifact and a short rationale naming alternatives considered and rejected. If a candidate produces no output, proceed with N-1 and record the dropout.
+Spawn candidates concurrently with the same task and grounding, their custom-agent profile, and exclusive output paths. Require the artifact and a short rationale naming alternatives considered and rejected. If a candidate produces no output, proceed with N-1 and record the dropout. If fewer than two runners remain, add another runner using a remaining available profile, or the parent model when no profile remains, within the active session limit. A deliberately single-runner request stays single. Disclose repeated-model coverage and never count it as model diversity.
 
 ### C. Cross-judge
 
-After candidates finish writing, spawn the read-only judge selected by [model routing](../poteto-mode/references/model-routing.md) for task difficulty. It sees the rubric and candidates under neutral path labels, scores each criterion, and recommends a base with rationale. The parent reads candidates in parallel with the judge; never start judging while candidates are writing.
+After candidates finish writing, spawn the read-only judge selected by [model routing](../poteto-mode/references/model-routing.md) for task difficulty. It sees the rubric and candidates under neutral path labels, scores each criterion, and recommends a base with rationale. The parent reads candidates in parallel with the judge; never start judging while candidates are writing. Keep the configured Sol or Astra judge assignment. If it is unavailable, skip the judge and disclose the gap rather than silently substituting another model. Cursor cross-family defaults do not replace the Codex routing policy.
 
 ### D. Pick a base
 
-Read every candidate end to end; score criterion by criterion, not on holistic feel, and compare with the cross-judge. Agreement confirms the base; disagreement may signal bias or an ambiguous rubric, so read both rationales before deciding. Pick the base a future maintainer can extend without breaking invariants; when tied, prefer the cleaner boundary or smaller API per the Laziness Protocol.
+Read every candidate end to end; score criterion by criterion, not on holistic feel, and compare with the cross-judge when one ran. Agreement confirms the base; disagreement may signal bias or an ambiguous rubric, so read both rationales before deciding. Pick the base a future maintainer can extend without breaking invariants; when tied, prefer the cleaner boundary or smaller API per the Laziness Protocol.
 
 ### E. Graft
 
@@ -41,4 +41,4 @@ Verify the synthesis per **prove-it-works**. If verification finds a missed prob
 
 ## Outputs
 
-Deliver one synthesized artifact and a short note alongside it, recording: base and why; cross-judge verdict; each graft and its source; rejected ideas and why; convergence or dropouts; verification result.
+Deliver one synthesized artifact and a short note alongside it, recording: base and why; cross-judge verdict or the reason it was skipped; each graft and its source; rejected ideas and why; convergence or dropouts; verification result.

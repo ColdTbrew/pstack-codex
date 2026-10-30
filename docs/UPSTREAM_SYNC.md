@@ -66,6 +66,14 @@ The generic upstream `plugin.json` and Cursor-specific `check-plan.test.ts`
 are preserved under `upstream-cursor-only/`. Keep the Codex Node regression
 tests and package test command. These boundaries are manual-review entries.
 
+The Statechart runner and runtime-only package manifest also require manual
+review. Keep the runner's literal exit-code type. Its upstream tests and fixtures
+stay in `.sync/upstream`, outside the shipped plugin. Validate the runtime with
+that existing suite in an ignored scratch copy, overlaying the reviewed runtime.
+On macOS, set `TMPDIR` to a canonical path when running the upstream suite so its
+relative launcher symlinks do not cross `/var` and `/private/var`. TLC-backed tests
+need the pinned `tla2tools.jar` and a JDK, including the Java source compiler.
+
 ## 4. Apply only the reviewed candidate
 
 ```bash

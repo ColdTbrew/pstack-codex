@@ -60,7 +60,7 @@ The usual entry point for a requested non-trivial task is `$pstack-codex:poteto-
 | Understand a change or subsystem, explained plainly | [`$pstack-codex:teach`](../teach/SKILL.md) |
 | Catch up on their own recent work on a topic | [`$pstack-codex:recall`](../recall/SKILL.md) |
 | Catch up on what changed in this chat since their last message, in plain words and small visuals, with every pending user decision explained in the reply | [`$pstack-codex:ketchup`](../ketchup/SKILL.md) |
-| Watch the catch-up as a short silent video, with pending decisions as text | [`$pstack-codex:ketchup-video`](../ketchup-video/SKILL.md) |
+| Watch the catch-up as a short subtitled video, with pending decisions as text | [`$pstack-codex:ketchup-video`](../ketchup-video/SKILL.md) |
 | Know what a small diff could break outside itself | [`$pstack-codex:blast-radius`](../blast-radius/SKILL.md) |
 | Settle types and module shape before code that crosses a function boundary | [`$pstack-codex:architect`](../architect/SKILL.md) |
 | Get several attempts at one brief, merged into the best one | [`$pstack-codex:arena`](../arena/SKILL.md) |
@@ -76,7 +76,7 @@ The usual entry point for a requested non-trivial task is `$pstack-codex:poteto-
 | Bring a verification skill and its feature map back in line with the app | [`$pstack-codex:maintain-verification-skill`](../maintain-verification-skill/SKILL.md) |
 | Formally verify a race, invariant, or property tests rarely reach | [`$pstack-codex:create-formal-verification-skill`](../create-formal-verification-skill/SKILL.md) |
 | Bring formal verification back in line with changed code and distinguish drift from bugs | [`$pstack-codex:maintain-formal-verification-skill`](../maintain-formal-verification-skill/SKILL.md) |
-| Show a system or bug as a checked statechart, derive a TLA+ skeleton from an agreed chart, or audit code against its spec | [`$pstack-codex:statechart`](../statechart/SKILL.md) |
+| Show a system as a checked TLA+ statechart, with the shortest path to each state that breaks a rule | [`$pstack-codex:statechart`](../statechart/SKILL.md) |
 | Vet a performance number before reporting or acting on it | [`$pstack-codex:benchmark-checklist`](../benchmark-checklist/SKILL.md) |
 | Run a large or cross-cutting change, or one to review after stepping away | [`$pstack-codex:figure-it-out`](../figure-it-out/SKILL.md) |
 | Keep a decision log during a run, and review it afterward | [`$pstack-codex:show-me-your-work`](../show-me-your-work/SKILL.md) |
@@ -107,7 +107,7 @@ Playbooks are step lists inside [poteto-mode](../poteto-mode/SKILL.md), not sepa
 - "land the stack": Shipping.
 - "take over this branch": Session pickup.
 - "pause safely": Pause safely.
-- "full autopilot on this queue": Autopilot-full. "stack them, don't ship": Autopilot-stack.
+- "full autopilot on this queue": Autopilot-full. "autopilot, don't merge": Autopilot-stack.
 - "run the eval playbook": Eval.
 
 For a plan spanning phases or stacked PRs, use [Multi-phase plan](../poteto-mode/playbooks/multi-phase-plan.md). For unresolved design choices, Prototype or `architect` gathers evidence before planning.

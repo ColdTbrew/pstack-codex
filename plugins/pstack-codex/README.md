@@ -51,4 +51,4 @@ Use `$pstack-codex:create-formal-verification-skill` to verify a property that t
 
 Invoke `$pstack-codex:statechart` to draw a checked statechart from a TLA+ model,
 `$pstack-codex:maintain-formal-verification-skill` to refresh verification after code changes,
-or `$pstack-codex:ketchup-video` for a short silent catch-up video.
+or `$pstack-codex:ketchup-video` for a short subtitled catch-up video.

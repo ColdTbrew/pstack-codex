@@ -1,46 +1,32 @@
 ---
 name: interrogate
-description: "Use for \"interrogate\", \"adversarial review\", \"multi-model review\", \"challenge this\", \"stress test this code\", \"find blind spots\", or \"tear this apart\". Multiple LLM reviewers challenge changes from independent angles."
+description: "Use for \"interrogate\", \"adversarial review\", \"multi-model review\", \"challenge this\", \"stress test this code\", \"find blind spots\", or \"tear this apart\". Adversaries try to break a change or design, and only findings proven by a run survive."
 ---
 
 # Interrogate
 
-Before each spawn, select the reasoning effort and service tier for the job under [model routing](../poteto-mode/references/model-routing.md). Preserve explicit user settings and the installed role profile; never substitute Cursor model slugs.
+Adversaries try to break a change or a design. A finding survives only when a run proves it. Report the findings. Do not apply fixes.
 
-Spawn the three Codex reviewer profiles to adversarially review code changes. Profile and model diversity creates independent blind spots; agreement is higher-confidence signal, while lone findings still deserve inspection. The deliverable is a synthesized verdict. Do NOT auto-apply changes.
+## Frame
 
-## Review
+The scope is what the user names. Otherwise it is the branch diff from its merge base with the base branch, through the working tree. State the intent with the **in-your-own-words** skill, from the user's message, the commits, and the PR description. Ask the user when the intent is unclear.
 
-1. **Scope:** Use the files or diff the user points to; on a feature branch, use `git diff main...HEAD` (or the appropriate base); for references to recent work, gather relevant files. Package the diff or contents with context reviewers need.
-2. **Intent:** Before spawning, state intent in one clear paragraph derived from the user message, commit messages, PR description if any, and code. If unsure, ask the user.
-3. **Reviewers:** Select the ordinary or high-risk reviewer set from [model routing](../poteto-mode/references/model-routing.md). Launch independent reviewers concurrently within the active session limit, including root and descendants; use waves when needed. If a profile is unavailable, proceed with remaining reviewers and report the dropout. Run `$pstack-codex:setup-pstack` separately to repair or change a profile; do not invent a model slug during review.
-4. Read `references/reviewer-prompt.md` and fill one shared template with the intent, diff or file contents, rubric (`references/rubric.md`), and code-quality lens (`references/code-quality-review.md`). Give the same filled template to every reviewer.
-5. **Synthesize:** Parse every finding; merge duplicates and name the models raising them. Findings raised independently by 2+ models are highest signal; read lone findings but weight accordingly. Note explicit disagreements as context.
-6. **Lead judgment:** You are a pragmatic senior engineer, not a neutral aggregator. Read `references/lead-judgment.md`; categorize every finding, naming model(s) and giving a one-line rationale:
-   - **Act on:** Real correctness, security, or maintainability issues given the goals; would block a real PR.
-   - **Consider:** Legitimate, but tradeoff against addressing now is uncertain.
-   - **Noted:** Valid but not actionable, context-dependent, premature, or low-impact now.
-   - **Dismissed:** Wrong, nitpicky, or missing context; briefly explain why.
+## Fan out
+
+Use Arena's framing, exclusive worktrees, and concurrent fan-out, with the ordinary or high-risk Interrogate reviewer set from [model routing](../poteto-mode/references/model-routing.md). Preserve each installed reviewer profile's model, effort, and service tier. Fit launches within the active Codex concurrency limit, using waves when needed. If a profile is unavailable, report the coverage gap and continue with the remaining independent reviewers; repair profiles separately with `$pstack-codex:setup-pstack`.
+
+Copy the scope's uncommitted changes into each worktree. Give each adversary the scope, the intent, and this brief:
+
+> Break this change. Prove each finding with a run against the real code, such as a failing test, a repro script, or command output that shows the wrong behavior. For a design or plan, run a prototype or probe the current tree. Keep repros in your own worktree. Respect the project's test-file creation policy; use an existing check or a direct command when new tests, fixtures, or test-only helpers are not authorized. Report each finding with a title, the exact command, the output it printed, and the output the intent requires. Leave out anything you did not run. That covers style, naming, structure, and risks that need a future change to matter. No findings is a valid result.
+
+## Verify
+
+Verify each finding per arena Phase F by rerunning its command. Keep a finding when the output shows the failure and the failure breaks the intent. Drop the rest. Merge findings that share a root cause.
+
+Skip arena Phases C, D, and E. Adversaries find different failures, so the verdict keeps every verified finding, not one adversary's list.
 
 ## Output
 
-### Intent
-> [Stated intent paragraph]
-
-### Reviewers
-- Reviewer [label]: [model name], [N findings] (one bullet per reviewer)
-
-### Act On
-[Each finding, models raising it, and why it matters.]
-
-### Consider
-[Each finding, models raising it, and tradeoff.]
-
-### Noted
-[Brief list.]
-
-### Dismissed
-[Each finding with brief rationale.]
-
-### Agreement Map
-[Where models agreed or diverged, and what the pattern tells us.]
+- **Intent**: the restatement.
+- **Findings**: for each verified finding, the command, its output, how it breaks the intent, and the adversaries that found it. Say "no verified findings" when none survive.
+- **Dropped**: for each adversary, the count of dropped findings and why.

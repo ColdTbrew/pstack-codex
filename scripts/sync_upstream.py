@@ -75,6 +75,8 @@ PORT_OWNED_TARGETS = {
     "skills/setup-pstack/SKILL.md",
     "skills/show-me-your-work/SKILL.md",
     "skills/statechart/SKILL.md",
+    "skills/statechart/scripts/package.json",
+    "skills/statechart/scripts/run.ts",
     "skills/swarm/SKILL.md",
     "skills/technical-writing/SKILL.md",
     "skills/unslop/SKILL.md",
@@ -369,6 +371,10 @@ def build_candidate(source: Path, candidate: Path, version: str, changed: bool) 
     if candidate.exists():
         shutil.rmtree(candidate)
     shutil.copytree(source, candidate)
+
+    # Upstream's Statechart tests remain in .sync/upstream for validation;
+    # distribute only the runtime, without introducing new test files.
+    shutil.rmtree(candidate / "skills/statechart/scripts/test", ignore_errors=True)
 
     move_if_present(candidate, "skills/grokbot", "upstream-cursor-only/grokbot")
     move_if_present(candidate, "skills/make-bot-ui", "upstream-cursor-only/grokbot/make-bot-ui")
