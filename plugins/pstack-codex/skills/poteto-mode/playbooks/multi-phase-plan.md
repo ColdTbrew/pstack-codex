@@ -5,7 +5,7 @@
 1. When the change is one or two files with an obvious approach, skip the plan. Say so and stop.
 2. Settle open questions by prototype before you write. Run `playbooks/prototype.md` for each. Keep the branch, the SHA, and the screenshots for Appendix A. Ask the operator only about a product or preference call that no run can settle. Give options (the **never-block-on-the-human** principle skill).
 3. Pick reasoning effort and service tier per the Subagents section, preserving explicit user settings. Explore in `poteto_agent` or `pstack_explorer` subagents per the Subagents section (the **guard-the-context-window** principle skill). Each returns file pointers, conventions, test commands, and entry points. No inlined dumps.
-4. Copy the skeleton below into the plan file and fill every placeholder. Unless the operator names a path, write the file under the agent store's `docs/`. Keep every heading and every sub-block in the order shown. One section per PR. One PR is one change with its own evidence (the **sequence-verifiable-units** principle skill). Name the execution playbook in **How to read this**. Pick between `playbooks/autopilot-full.md` and `playbooks/autopilot-stack.md` per the rule at the end of `playbooks/autopilot-stack.md`. A standing program takes `playbooks/orchestrate.md`.
+4. Copy the skeleton below into the plan file and fill every placeholder. Unless the operator names a path, write the file under the agent store's `docs/`. Keep every heading and every sub-block in the order shown. One section per PR. One PR is one change with its own evidence (the **sequence-verifiable-units** principle skill). Name the execution playbook in **How to read this**. Pick `playbooks/autopilot-full.md` when the run may merge. Pick `playbooks/autopilot-stack.md` when the operator lands the PRs. A standing program takes `playbooks/orchestrate.md`.
 5. Write under `$pstack-codex:technical-writing` in full, then `$pstack-codex:unslop`. The body is one Diátaxis mode, how-to. Appendices hold explanation and reference. Two rules apply verbatim. "i dont want any abstract metaphors" and "write like hemingway". Each heading states the task or the finding. No long dashes. No mid-sentence colons.
 6. Resolve the installed `pstack-codex` plugin root, run `node <plugin-root>/skills/poteto-mode/scripts/check-plan.mjs <plan.md>`, and fix every line it prints (the **encode-lessons-in-structure** principle skill). It enforces the skeleton's shape, the verification rule in every verification block, and the punctuation rules.
 7. Hand back. Post the plan path and the script's output, then stop. Execution starts on the operator's explicit go, under the execution playbook the plan names.
@@ -59,14 +59,14 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 - [ ] Run the repo's lint and typecheck once before the PR-facing push. Push with hooks on.
 - [ ] Run `$pstack-codex:unslop` before each commit and `$pstack-codex:no-comments` before review.
 - [ ] Triage every Bugbot and security-reviewer comment per `../references/bugbot-triage.md`.
-- [ ] Follow the execution playbook's topology rules. Autopilot-full owners rebase onto trunk before code-ready and keep that base in fix rounds unless trunk conflicts or breaks CI. Autopilot-stack owners never rebase; the root owns chain changes. Merge prep and later trunk drift follow Autopilot-full step 5 and Shipping's patch-id rule.
+- [ ] Follow the execution playbook's topology rules. Autopilot-full owners rebase onto trunk before code-ready and keep that base in fix rounds unless trunk conflicts, breaks CI, or lands a known concurrent change to the same files. Autopilot-stack owners rebase dependent PRs onto their parents and independent PRs onto trunk, on the root's topology decision. Merge prep and later trunk drift follow Autopilot-full step 5 and Shipping's patch-id rule.
 
 ### Verdict and merge, for every PR
 
-- [ ] A full swarm runs once at the code-ready head and again only for new behavior, a redesign, or a large new diff. A rebase, conflict resolution, or minor fix gets a single independent verifier at the new head. Run each full swarm per `<plugin-root>/skills/swarm/SKILL.md`. One gates lane. Every declared live lane from the PR's **Verify, live** block. The perf lane from its **Verify, perf** block. Two or more audit lanes, each with its own focus, that read the diff and the receipts and distrust the PR body. The root audits the receipts in the merge-ready report before the verdict.
-- [ ] Clean only when every lane is `PASS`. Findings go back to the owner, including a defect that a lane filed as a note. A new head gets a fresh verdict, except for results that stay valid under the patch-id rule in `playbooks/shipping.md`.
+- [ ] A full swarm runs once at the code-ready head and again only for new behavior, a redesign, or a large new diff. A rebase, conflict resolution, or minor fix gets a single independent verifier at the new head, and a wording-only change gets none. Run each full swarm per `<plugin-root>/skills/swarm/SKILL.md`. One gates lane. Every declared live lane from the PR's **Verify, live** block. The perf lane from its **Verify, perf** block. Two or more audit lanes, each with its own focus, that read the diff and the receipts and distrust the PR body. The root audits the receipts in the merge-ready report before the verdict.
+- [ ] Judge every finding by the execution playbook's blocking rule. The verdict is clean when none blocks. A failure on existing trunk behavior in a lane marked `Regression lane against trunk.` is recorded against trunk unless the PR copies it or newly reaches it. A new head gets a fresh verdict, except for results that stay valid under the patch-id rule in `playbooks/shipping.md`.
 - [ ] Run lanes in waves within the active Codex concurrency limit.
-- [ ] <The merge or append rule from the execution playbook, with the patch-id rule from `playbooks/shipping.md`.>
+- [ ] <The merge or handoff rule from the execution playbook, with the patch-id rule from `playbooks/shipping.md`.>
 
 ### Boot recipe, for every live lane
 
@@ -122,8 +122,8 @@ Each live lane runs on its own isolated Codex worktree at the PR head. Drive thr
 
 - [ ] Root's clean verdict at the exact head SHA.
 - [ ] Bugbot triage done.
-- [ ] Base is the one required by the execution playbook. In a review stack, the child remains based on its parent until landing. After any root-owned rebase, re-check patch-id, verdict, and CI on the new head.
-- [ ] <The owner squash-merges its own PR, or the root appends it to the base-branch stack and the operator lands it bottom-up.>
+- [ ] Base is the one required by the execution playbook. In a review stack, the child remains based on its parent until landing. After any owner-performed rebase, re-check patch-id, verdict, and CI on the new head.
+- [ ] <The owner squash-merges its own PR, or hands verified PRs to the operator, who lands dependencies bottom-up.>
 
 ## Close the program
 

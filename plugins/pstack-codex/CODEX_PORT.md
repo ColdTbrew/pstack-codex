@@ -1,6 +1,6 @@
 # pstack-codex port notes
 
-This package derives from `cursor/plugins/pstack` 0.15.32 under the MIT license.
+This package derives from `cursor/plugins/pstack` 0.15.36 under the MIT license.
 
 The Codex port packages the reusable skills as a Codex plugin and provides
 standalone custom-agent TOML files under `codex-agents/`. Cursor-only Grok Bot
@@ -20,6 +20,27 @@ Runtime mappings:
 
 The exact upstream commit and update procedure are tracked by the containing
 repository's `upstream-lock.json` and `docs/UPSTREAM_SYNC.md`.
+
+## Upstream 0.15.36 reconciliation
+
+The update pins `cursor/plugins` at `4dd1d05818d19792e7cd6e818f1667f95f7e1dbe`.
+
+- Port the TypeScript Statechart compiler, view modules, bounded TLC reports,
+  and Pele rendering guidance. Run its existing upstream regression suite in
+  scratch space; ship the runtime without adding test files or test fixtures.
+- Interrogate keeps only failures reproduced against real code, retaining the
+  Codex reviewer profiles, isolated worktrees, and opt-in test-file policy.
+- Autopilot-stack hands verified PRs to the operator and stacks only real
+  dependencies. Branch owners perform topology changes on the root's decision.
+- Orchestrate uses Codex tools directly with bounded agents and durable receipts.
+  Retain the Codex bookkeeping CLI and its existing tests as offline compatibility;
+  it does not drive the agent lifecycle.
+- Adopt goal restatements, rejected-model handling, blocking findings, subtitled
+  catch-ups, and dependency-aware handoffs. Keep the configured Arena judge;
+  Cursor's cross-family pool does not replace Codex role assignments.
+- Preserve all 10 model profiles and their reasoning and service-tier settings,
+  report-only Unslop, explicit-only invocation for all 57 skills, Codex plan
+  regression checks, and opt-in creation of tests, fixtures, and test-only helpers.
 
 ## Upstream 0.15.32 reconciliation
 

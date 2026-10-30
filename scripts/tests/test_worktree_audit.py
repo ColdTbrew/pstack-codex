@@ -12,7 +12,7 @@ class WorktreeAudit(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory(prefix='pstack-audit-')
         self.addCleanup(self.tmp.cleanup)
-        self.root = Path(self.tmp.name)
+        self.root = Path(self.tmp.name).resolve()
         self.repo = self.root / 'repo'
         self.remote = self.root / 'origin.git'
         self.wt = self.root / 'worktree'
