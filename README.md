@@ -33,7 +33,7 @@ your last message, with the context needed to decide pending action items.
 Use `$pstack-codex:recall` for context on a topic across chats.
 
 Use `$pstack-codex:in-your-own-words` to check the goal before work, or
-`$pstack-codex:sharpen` to rewrite a prompt with expert methods and an outside check,
+`$pstack-codex:sharpen` to rewrite a prompt with expert methods, prototype decisions an experiment can settle, and an outside check,
 without doing the task. The current chat owns Poteto Mode's playbook and plan; `poteto_agent` handles delegates.
 
 ## Update an installation

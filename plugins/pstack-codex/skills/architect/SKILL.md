@@ -19,7 +19,7 @@ Create or update a Codex plan with one entry per phase:
 
 ## Phase A: Ground the problem
 
-Build a mental model of every system the code touches. Run the **how** skill on relevant subsystems and produce its architectural explanation; naming files is not grounding. If the design changes ownership or layering, also run **why** so existing rationale constrains the design.
+Build a mental model of every system the code touches. Trace relevant subsystems and write an architectural explanation of each; naming files is not grounding. If the design changes ownership or layering, also run **why** so existing rationale constrains the design.
 
 Skip this phase only for genuinely greenfield work with no surrounding system.
 
@@ -64,7 +64,7 @@ Use judgment: a few edge cases do not condemn a design, and data complexity is n
 
 When scrapping:
 
-1. Rerun **how** on what was built.
+1. Trace what was built.
 2. Redesign with new constraints as day-one assumptions, following **redesign-from-first-principles**.
 3. Subtract before adding, following **subtract-before-you-add**. Make the new sketch smaller before it grows.
 4. Return to Phase B and rerun arena.

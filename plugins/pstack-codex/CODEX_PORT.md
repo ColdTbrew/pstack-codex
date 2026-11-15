@@ -1,6 +1,6 @@
 # pstack-codex port notes
 
-This package derives from `cursor/plugins/pstack` 0.15.36 under the MIT license.
+This package derives from `cursor/plugins/pstack` 0.15.42 under the MIT license.
 
 The Codex port packages the reusable skills as a Codex plugin and provides
 standalone custom-agent TOML files under `codex-agents/`. Cursor-only Grok Bot
@@ -20,6 +20,24 @@ Runtime mappings:
 
 The exact upstream commit and update procedure are tracked by the containing
 repository's `upstream-lock.json` and `docs/UPSTREAM_SYNC.md`.
+
+## Upstream 0.15.42 reconciliation
+
+The update pins `cursor/plugins` at `bf0c7cd80abdbf7fe47b634978a7d1b4071f71a7`.
+
+- Simplify How to one read-only Codex explainer and Why to source-control
+  records, cited author statements, explicit inferences, and named evidence gaps.
+  Remove their retired reference files and automatic How workflow triggers.
+- Port Statechart SANY diagnostics and Mermaid edge handling. Keep the Codex
+  literal exit-code type and validate with the existing upstream suite in scratch
+  space, without shipping new test files or fixtures.
+- Adopt prototype-first prompt sharpening, concise teaching, recall updates,
+  investigation grounding, and reflection synthesis guidance.
+- Retain all 10 Codex agent profiles, model families, efforts, service tiers,
+  Arena judge policy, bounded waves, and explicit-only invocation for 57 skills.
+  Cursor model-default migrations do not alter Codex TOML configuration.
+- Preserve the Codex help, setup, reflect, and swarm orchestration boundaries;
+  their remaining upstream changes only revise Cursor model defaults or APIs.
 
 ## Upstream 0.15.36 reconciliation
 

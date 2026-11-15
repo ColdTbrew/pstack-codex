@@ -144,7 +144,7 @@ Each live lane runs on its own isolated Codex worktree at the PR head. Drive thr
 
 ## Appendix D. Links and reading list
 
-<Docs to read before editing. Which PRs get the installed `how` and `interrogate` skills. The trail follows the installed `show-me-your-work` skill.>
+<Docs to read before editing. Which PRs get the installed `interrogate` skill. The trail follows the installed `show-me-your-work` skill.>
 ````
 
 **Reply:** the plan path, the PR ids with their dependencies and the review-gated set, what the prototypes proved and what stays unproven, and the check script's output.
