@@ -27,6 +27,8 @@ Skip this phase only for genuinely greenfield work with no surrounding system.
 
 Run **arena** with the design-sketch task and Phase A artifacts. Pass `references/runner-prompt.md` to each runner. Use the `$pstack-codex:arena` candidate set for task difficulty from [model routing](../poteto-mode/references/model-routing.md).
 
+Prefer a shape with one owner for each piece of state, one supported way to do each task, and the least knowledge required from callers. Repeated workarounds are evidence to redesign, not a reason to add another exception.
+
 Require at least two structurally distinct designs before synthesis, even when the first looks sufficient. Compare whole shapes, not point fixes. This makes the **exhaust-the-design-space** principle concrete.
 
 Screen each candidate against [`references/design-red-flags.md`](references/design-red-flags.md). Assume the next contributor sees only opened files, copies the nearest example, and takes the shortest compiling path. Prefer a design where a locally plausible change is right for the whole repo.

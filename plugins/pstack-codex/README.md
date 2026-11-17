@@ -24,7 +24,7 @@ rebuild context on a topic across chats. All 57 skills are explicit-only.
 
 Use `$pstack-codex:in-your-own-words` to restate the goal before work, and `$pstack-codex:sharpen` to rewrite the prompt with expert methods, prototype decisions an experiment can settle, and an outside check, without doing the task.
 
-The chat receiving `$pstack-codex:poteto-mode` owns the playbook and task plan. `poteto_agent` handles delegated slices; do not launch it as the playbook runner.
+The chat receiving `$pstack-codex:poteto-mode` owns the playbook and task plan. `poteto_agent` handles delegated slices; do not launch it as the playbook runner. Each delegated kickoff starts by reading `skills/poteto-mode/worker.md`, which carries Codex-specific scope, verification, and approval rules into the subagent.
 
 Run `$pstack-codex:setup-pstack` to review or change the custom-agent model
 mapping. The companion agent installation includes the `poteto_agent`, `comment_sicko`,

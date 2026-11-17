@@ -1,6 +1,6 @@
 # pstack-codex port notes
 
-This package derives from `cursor/plugins/pstack` 0.15.42 under the MIT license.
+This package derives from `cursor/plugins/pstack` 0.15.43 under the MIT license.
 
 The Codex port packages the reusable skills as a Codex plugin and provides
 standalone custom-agent TOML files under `codex-agents/`. Cursor-only Grok Bot
@@ -20,6 +20,25 @@ Runtime mappings:
 
 The exact upstream commit and update procedure are tracked by the containing
 repository's `upstream-lock.json` and `docs/UPSTREAM_SYNC.md`.
+
+## Upstream 0.15.43 reconciliation
+
+The update pins `cursor/plugins` at `b4a4f6151b8e77f8d71045f09f553a733cf0ed37`.
+
+- Adopt the shorter principle and writing guidance where it keeps the same
+  Codex behavior. Add the upstream worker-rules handoff as a Codex `worker.md`
+  and require its absolute path on the first line of each delegated kickoff.
+- Keep Codex approval rules, branch protections, and explicit skill invocation.
+  The upstream worker's blanket no-question rule does not replace Codex's
+  required user choices or approvals.
+- Keep all 10 Codex agent profiles, model families, reasoning efforts, service
+  tiers, Arena assignments, and explicit-only invocation. Cursor's Opus/Fable/
+  Gemini defaults and `setup-pstack` rule migration are not Codex settings.
+- Keep Codex's multi-reviewer Reflect roles, Architect checkpoint, Orchestrate
+  playbook, plan checker, and existing regression suite. The upstream removals
+  apply to Cursor's workflow and do not replace these Codex-owned tools.
+- Preserve the detailed Codex PR and multi-phase-plan approval gates while
+  adopting the shorter source guidance that does not weaken those gates.
 
 ## Upstream 0.15.42 reconciliation
 

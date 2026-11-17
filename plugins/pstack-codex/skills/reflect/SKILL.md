@@ -19,6 +19,8 @@ Invoke when the user says "reflect" or "$pstack-codex:reflect". Skip trivial, of
 
 Build a compact digest from the current conversation, decision log, changed files, commands, results, and subagent handoffs. Use Codex task/thread tools only if the task is not fully visible or the user asks to include related prior tasks; do not scan unrelated history.
 
+Keep findings that are likely to remain true in six months, would change a future agent's work, and route to a skill used in this session. Read that skill first and drop findings it already states clearly. Drop one-off or drifting details such as SHAs, versions, and counts. If a lint, script, metadata flag, or runtime check can enforce a finding, route it to Backlog instead of skill prose.
+
 ### 2. Review in parallel
 
 Launch three read-only reviewers concurrently over the same digest. The parent applies approved edits.

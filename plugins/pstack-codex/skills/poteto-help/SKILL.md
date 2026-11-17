@@ -46,6 +46,8 @@ The Codex port uses Codex subagents, shared workspaces or isolated worktrees, an
 
 Pstack's model routing and companion TOML profiles define the subagent roles. Use available Codex subagent tools and keep launches within the active session limit. Subagents share files unless assigned separate worktrees; they do not each receive a separate machine.
 
+Poteto Mode starts every delegated agent with the explicit `skills/poteto-mode/worker.md` rules file. Preserve each installed profile's model, reasoning effort, and service tier. Ask the user only for a genuine choice or approval required by the task.
+
 ## Pick a skill
 
 The usual entry point for a requested non-trivial task is `$pstack-codex:poteto-mode`. Name another skill directly when the user wants a specific workflow. Read it before recommending it, and give one example prompt.
