@@ -1,6 +1,6 @@
 name = "pstack_reviewer_sol"
 description = "Deep read-only pstack reviewer for correctness, design, and hidden regressions."
-model = "gpt-6.1-sol"
+model = "gpt-6.2-sol"
 model_reasoning_effort = "high"
 sandbox_mode = "read-only"
 

@@ -126,6 +126,19 @@ The update pins `cursor/plugins` at `1e5c90a4b6f249917bd21fe361b3a2a7deb741b8`.
   verification waves, report-only Unslop, opt-in test-file creation, Codex transcript
   paths, explicit-only invocation, and merge/auto-merge authorization gates.
 
+## Model routing update 2026-11-19
+
+The port ships 10 Astra/Sol/Terra profiles. Sol moves to `gpt-6.2-sol` and
+Astra to `gpt-6.2-astra` at high effort, reserved for the hardest
+implementation and high-risk review. Terra returns on `gpt-6.1-terra` at high
+effort for exploration, comment review, swarm workers, mechanical builds, and
+broad review. The Luna builder and reviewer profiles become
+`pstack_builder_terra` and `pstack_reviewer_terra`, `pstack_worker` moves to
+Terra, and no profile sets `service_tier`. Arena and Interrogate use Sol + Terra
+for ordinary work and add Astra for difficult work; Reflect uses Terra for its
+tooling and divergent lenses. The installer removes the two retired Luna
+profiles on update.
+
 ## Model routing update 2026-10-12
 
 The current port ships 10 Astra/Sol/Luna profiles. Sol uses `gpt-6.1-sol`
