@@ -6,26 +6,26 @@ Use this policy when selecting pstack agents. Explicit user choices take precede
 
 | Role | Profile or launch choice | Model | Reasoning |
 | --- | --- | --- | --- |
-| Root coordinator | Current chat, start with Astra | `gpt-6-astra` | `medium` |
-| Default implementation delegate | `poteto_agent` | `gpt-6.1-sol` | `medium` |
-| Track sub-coordinator | General agent with an explicit track brief | `gpt-6.1-sol` | `medium` |
-| Difficult implementation | `pstack_builder_astra` | `gpt-6-astra` | `medium` |
-| Scoped feature or bug fix | `pstack_builder_sol` | `gpt-6.1-sol` | `medium` |
-| Codebase exploration | `pstack_explorer` | `gpt-6.1-sol` | `high` |
-| Alternative implementation | `pstack_builder_sol` / `pstack_builder_astra` by difficulty | `gpt-6.1-sol` / `gpt-6-astra` | `medium` |
-| Mechanical implementation / coverage | `pstack_builder_luna` / `pstack_worker` | `gpt-6-luna` | `max` |
-| General independent review | `pstack_reviewer_sol` | `gpt-6.1-sol` | `high` |
-| Broad bounded review | `pstack_reviewer_luna` | `gpt-6-luna` | `max` |
-| High-risk review / disputed findings | `pstack_reviewer_astra` | `gpt-6-astra` | `high` |
-| Comment review | `comment_sicko` | `gpt-6.1-sol` | `high` |
+| Root coordinator | Current chat | Selected chat model | Selected |
+| Default implementation delegate | `poteto_agent` | `gpt-6.2-sol` | `medium` |
+| Track sub-coordinator | General agent with an explicit track brief | `gpt-6.2-sol` | `medium` |
+| Hardest implementation | `pstack_builder_astra` | `gpt-6.2-astra` | `high` |
+| Scoped feature or bug fix | `pstack_builder_sol` | `gpt-6.2-sol` | `medium` |
+| Codebase exploration | `pstack_explorer` | `gpt-6.1-terra` | `high` |
+| Alternative implementation | `pstack_builder_sol` / `pstack_builder_terra` | `gpt-6.2-sol` / `gpt-6.1-terra` | `medium` / `high` |
+| Mechanical implementation / coverage | `pstack_builder_terra` / `pstack_worker` | `gpt-6.1-terra` | `high` |
+| General independent review | `pstack_reviewer_sol` | `gpt-6.2-sol` | `high` |
+| Broad bounded review | `pstack_reviewer_terra` | `gpt-6.1-terra` | `high` |
+| High-risk review / disputed findings | `pstack_reviewer_astra` | `gpt-6.2-astra` | `high` |
+| Comment review | `comment_sicko` | `gpt-6.1-terra` | `high` |
 
-The three Luna profiles set `service_tier = "fast"` and retain `model_reasoning_effort = "max"`. Service tier and reasoning effort are separate settings. Other profiles inherit the session's service tier.
+Terra carries high-volume exploration, coverage, and broad review at lower cost. Sol carries scoped implementation and general review. Astra is reserved for the hardest implementation and high-risk review. No shipped profile sets `service_tier`; profiles inherit the session's service tier.
 
-The root runs on the current chat model. A skill or custom-agent TOML does not switch it. Recommend Astra medium when starting an orchestration session; continue on an explicitly selected model. Only create track coordinators when the orchestrate playbook needs them. Use the available general agent with explicit Sol/medium settings and a self-contained track brief; when model overrides require a limited or empty history fork, supply the necessary context in that brief. Do not repurpose an implementation-only or read-only profile as a coordinator.
+The root runs on the current chat model. A skill or custom-agent TOML does not switch it. Continue on the explicitly selected model. Only create track coordinators when the orchestrate playbook needs them. Use the available general agent with explicit Sol/medium settings and a self-contained track brief; when model overrides require a limited or empty history fork, supply the necessary context in that brief. Do not repurpose an implementation-only or read-only profile as a coordinator.
 
 ## Selection and escalation
 
-Use `poteto_agent` on Sol/medium for ordinary end-to-end implementation helpers. Select `pstack_builder_astra` on Astra/medium for unresolved design choices, changes to contracts across modules, or a scoped Sol attempt that cannot establish correctness; supply the task brief and matched poteto-mode playbook so the helper follows the same wrapper. Use Astra review for concurrency, possible data loss, major architectural changes, or consequential disagreement between reviewers. Ordinary scoped work remains on Sol; mechanical work remains on Luna. Route codebase exploration to the Sol explorer.
+Use `poteto_agent` on Sol/medium for ordinary end-to-end implementation helpers. Select `pstack_builder_astra` on Astra/high only for unresolved design choices, changes to contracts across modules, or a scoped Sol attempt that cannot establish correctness; supply the task brief and matched poteto-mode playbook so the helper follows the same wrapper. Use Astra review for concurrency, possible data loss, major architectural changes, or consequential disagreement between reviewers. Ordinary scoped work remains on Sol; mechanical work and exploration remain on Terra. Route codebase exploration to the Terra explorer.
 
 Keep implementation and verification in separate agents. A reviewer must not have written the artifact, including when builder and reviewer use the same model. Resolve findings with evidence rather than vote count alone.
 
@@ -36,7 +36,7 @@ adjustment, raise effort one supported level for unusually subtle work and lower
 for routine work. Keep the role's model and the independent review composition.
 Use fast service only for urgency (red CI or trunk, or a person blocked now), unless
 an installed override fixes that tier; verification keeps its configured speed.
-The shipped Luna profiles remain max/fast, and explicit user choices always win.
+Explicit user choices always win.
 Codex expresses speed with `service_tier`, not a `-fast` model suffix. If the active
 launch API cannot adjust effort or tier, use the installed profile unchanged and
 report the limitation rather than inventing a slug or editing global settings.
@@ -45,10 +45,10 @@ report the limitation rather than inventing a slug or editing global settings.
 
 | Mode | Ordinary work | Difficult or high-risk work |
 | --- | --- | --- |
-| Arena candidates | Sol + Luna builders; add Astra for a third meaningful alternative | Astra + Sol + Luna builders |
+| Arena candidates | Sol + Terra builders | Astra + Sol + Terra builders |
 | Arena judge | Sol reviewer | Astra reviewer |
-| Interrogate reviewers | Sol + Luna reviewers; add Astra when a third independent review is warranted | Astra + Sol + Luna reviewers |
-| Swarm slices | Luna worker | Sol builder for scoped implementation; Astra builder for difficult implementation |
+| Interrogate reviewers | Sol + Terra reviewers | Astra + Sol + Terra reviewers |
+| Swarm slices | Terra worker | Sol builder for scoped implementation; Astra builder for difficult implementation |
 
 Use fewer candidates when there are fewer meaningful alternatives. Fit every launch within the active session limit, counting the root and all descendants. Derive available child slots from the actual session limit minus the root and active descendants. Arena judges start after candidates finish.
 

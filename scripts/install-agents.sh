@@ -10,7 +10,7 @@ for source in "$source_dir"/*.toml; do
 	cp "$source" "$target_dir/$(basename "$source")"
 done
 
-rm -f -- "$target_dir/pstack_builder_terra.toml" "$target_dir/pstack_reviewer_terra.toml"
+rm -f -- "$target_dir/pstack_builder_luna.toml" "$target_dir/pstack_reviewer_luna.toml"
 
 printf 'Installed %s custom-agent profiles into %s\n' \
 	"$(find "$source_dir" -maxdepth 1 -name '*.toml' | wc -l | tr -d ' ')" \

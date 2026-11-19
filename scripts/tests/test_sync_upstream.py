@@ -28,7 +28,7 @@ class SyncCandidate(unittest.TestCase):
             (source / 'plugin.json').write_text('{"name":"pstack","version":"9.0.0"}')
             candidate = Path(directory) / 'candidate'
             sync.build_candidate(source, candidate, '9.0.0', True)
-            for relative in ('skills/poteto-mode/scripts/check-plan.mjs', 'skills/poteto-mode/scripts/check-plan.test.mjs', 'skills/poteto-mode/scripts/package.json', 'codex-agents/pstack_builder_luna.toml', 'skills/ketchup/SKILL.md', 'skills/poteto-mode/scripts/orch/store.ts', 'skills/poteto-mode/scripts/orch/orch.ts', 'skills/statechart/scripts/package.json', 'skills/statechart/scripts/run.ts'):
+            for relative in ('skills/poteto-mode/scripts/check-plan.mjs', 'skills/poteto-mode/scripts/check-plan.test.mjs', 'skills/poteto-mode/scripts/package.json', 'codex-agents/pstack_builder_terra.toml', 'skills/ketchup/SKILL.md', 'skills/poteto-mode/scripts/orch/store.ts', 'skills/poteto-mode/scripts/orch/orch.ts', 'skills/statechart/scripts/package.json', 'skills/statechart/scripts/run.ts'):
                 self.assertEqual((candidate / relative).read_bytes(), (plugin / relative).read_bytes())
             self.assertFalse((candidate / 'plugin.json').exists())
             self.assertFalse((candidate / 'skills/poteto-mode/scripts/check-plan.test.ts').exists())

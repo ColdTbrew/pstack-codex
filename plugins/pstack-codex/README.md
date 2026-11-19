@@ -31,9 +31,9 @@ mapping. The companion agent installation includes the `poteto_agent`, `comment_
 `pstack_builder_*`, `pstack_reviewer_*`, `pstack_explorer`, and
 `pstack_worker` profiles under `~/.codex/agents/`.
 
-The 10 profiles use `gpt-6-astra`, `gpt-6.1-sol`, and `gpt-6-luna`.
+The 10 profiles use `gpt-6.2-astra`, `gpt-6.2-sol`, and `gpt-6.1-terra`.
 See [model routing](skills/poteto-mode/references/model-routing.md) for each
-role's model and reasoning effort. The agent installer removes retired Terra
+role's model and reasoning effort. The agent installer removes the retired Luna
 builder and reviewer profiles when updating an existing installation.
 
 ## Port boundary

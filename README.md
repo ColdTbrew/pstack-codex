@@ -23,8 +23,8 @@ $pstack-codex:poteto-mode investigate this bug, fix the root cause, and verify i
 ```
 
 The plugin currently contains 57 skills and 10 custom-agent profiles. The
-custom agents use `gpt-6-astra` for demanding work, `gpt-6.1-sol` for scoped
-implementation and exploration, and `gpt-6-luna` for bounded mechanical work.
+custom agents use `gpt-6.2-astra` only for the hardest work, `gpt-6.2-sol` for scoped
+implementation and general review, and `gpt-6.1-terra` for exploration and bounded mechanical work.
 See the [model routing policy](plugins/pstack-codex/skills/poteto-mode/references/model-routing.md)
 for coordinator settings, review escalation, and mode composition.
 

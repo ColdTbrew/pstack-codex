@@ -1,6 +1,6 @@
 name = "poteto_agent"
 description = "Pstack implementation delegate for a bounded task during a parent-owned poteto-mode run."
-model = "gpt-6.1-sol"
+model = "gpt-6.2-sol"
 model_reasoning_effort = "medium"
 
 developer_instructions = """
