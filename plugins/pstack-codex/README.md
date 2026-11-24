@@ -20,9 +20,9 @@ Useful direct workflows include `$pstack-codex:how`, `$pstack-codex:why`,
 
 Use `$pstack-codex:ketchup` for a read-only catch-up on this chat since your
 last message, including pending decisions. Use `$pstack-codex:recall` to
-rebuild context on a topic across chats. All 57 skills are explicit-only.
+rebuild context on a topic across chats. All 58 skills are explicit-only.
 
-Use `$pstack-codex:in-your-own-words` to restate the goal before work, and `$pstack-codex:sharpen` to rewrite the prompt with expert methods, prototype decisions an experiment can settle, and an outside check, without doing the task.
+Use `$pstack-codex:in-your-own-words` to restate the goal before work, and `$pstack-codex:sharpen` to rewrite the prompt with expert methods, prototype decisions an experiment can settle, and an outside check, without doing the task. When you can't name what you're building, use `$pstack-codex:reframe` to learn the expert terms, with checked sources and analogies from neighboring fields, and get your description rewritten with them.
 
 The chat receiving `$pstack-codex:poteto-mode` owns the playbook and task plan. `poteto_agent` handles delegated slices; do not launch it as the playbook runner. Each delegated kickoff starts by reading `skills/poteto-mode/worker.md`, which carries Codex-specific scope, verification, and approval rules into the subagent.
 

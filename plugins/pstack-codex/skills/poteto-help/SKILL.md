@@ -57,6 +57,7 @@ The usual entry point for a requested non-trivial task is `$pstack-codex:poteto-
 | Do any non-trivial task with rigor | [`$pstack-codex:poteto-mode`](../poteto-mode/SKILL.md) |
 | Check the agent understood the goal before work | [`$pstack-codex:in-your-own-words`](../in-your-own-words/SKILL.md) |
 | Rewrite a prompt with expert methods and an outside check, without doing the task | [`$pstack-codex:sharpen`](../sharpen/SKILL.md) |
+| Learn the expert words for what they're building, including words borrowed from neighboring fields, with every cited source checked, and get their description rewritten with them | [`$pstack-codex:reframe`](../reframe/SKILL.md) |
 | Know how code works now, or where new code should live | [`$pstack-codex:how`](../how/SKILL.md) |
 | Know why code is shaped this way, or where a number came from | [`$pstack-codex:why`](../why/SKILL.md) |
 | Understand a change or subsystem, explained plainly | [`$pstack-codex:teach`](../teach/SKILL.md) |

@@ -1,6 +1,6 @@
 # pstack-codex port notes
 
-This package derives from `cursor/plugins/pstack` 0.15.46 under the MIT license.
+This package derives from `cursor/plugins/pstack` 0.15.48 under the MIT license.
 
 The Codex port packages the reusable skills as a Codex plugin and provides
 standalone custom-agent TOML files under `codex-agents/`. Cursor-only Grok Bot
@@ -39,6 +39,15 @@ The update pins `cursor/plugins` at `b4a4f6151b8e77f8d71045f09f553a733cf0ed37`.
   apply to Cursor's workflow and do not replace these Codex-owned tools.
 - Preserve the detailed Codex PR and multi-phase-plan approval gates while
   adopting the shorter source guidance that does not weaken those gates.
+
+## Upstream 0.15.48 reconciliation
+
+The update pins `cursor/plugins` at `ca782ed8b3c2c521cead8e1720d55c3a5dbf2347`.
+
+- Add Reframe with a Poteto Help entry; all 58 skills remain explicit-only.
+- Register the Codex worker rules, Reflect reviewer references, and Architect
+  design red flags as port-owned so a staged sync no longer drops or reverts them.
+- Retain all 10 Codex agent profiles and their model routing.
 
 ## Upstream 0.15.42 reconciliation
 
